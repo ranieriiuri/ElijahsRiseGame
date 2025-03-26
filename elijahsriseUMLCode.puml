@@ -1,0 +1,85 @@
+@startuml
+
+class Game {
+    - Level currentLevel
+    + start()
+    + update()
+}
+
+class Level {
+    - List<Entity> entities
+    + loadLevel()
+    + update()
+}
+
+class Entity {
+    + update()
+    + render()
+}
+
+class Player extends Entity {
+    - int health
+    + move()
+    + collectItem()
+}
+
+class Raven extends Player {
+    + fly()
+}
+
+class Obstacle extends Entity {
+    + checkCollision()
+}
+
+class Tree extends Obstacle {}
+class Bird extends Obstacle {}
+class Wind extends Obstacle {}
+
+class Item extends Entity {
+    + applyEffect()
+}
+
+class Bread extends Item {}
+class Meat extends Item {}
+
+class ScoreManager {
+    - int score
+    + addPoints()
+    + getScore()
+}
+
+class CollisionMediator {
+    + handleCollisions()
+}
+
+class EntityFactory {
+    + createEntity(type: String): Entity
+}
+
+class DatabaseProxy {
+    + saveScore(score: int)
+}
+
+class VideoManager {
+    + playIntro()
+    + playEnding()
+}
+
+Game -> Level : manages
+Level -> Entity : contains *
+Player --|> Entity
+Raven --|> Player
+Obstacle --|> Entity
+Tree --|> Obstacle
+Bird --|> Obstacle
+Wind --|> Obstacle
+Item --|> Entity
+Bread --|> Item
+Meat --|> Item
+Game --> ScoreManager : uses
+Game --> CollisionMediator : uses
+Game --> EntityFactory : creates entities with
+Game --> DatabaseProxy : saves score via
+Game --> VideoManager : plays videos via
+
+@enduml
