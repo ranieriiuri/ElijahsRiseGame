@@ -27,11 +27,7 @@ class Level:
         player = EntityFactory.get_entity('Player')
         #player.score = player_score[0]  --> liberar depois
         self.entity_list.append(player)
-        #caso no menu tenha sido escolhido as opções de player 2 cooperative ou competitive...
-        #if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
-        #    player = EntityFactory.get_entity('Player2')
-        #    player.score = player_score[1] #esse score é do P2, o do P1 é na posição 0
-        #    self.entity_list.append(player)
+
             #usa um timer para criar os inimigos baseado na const criada no arq. 'const'... 'spawn' é criar um novo processo, essa const set 3s para criar um novo inimigo
         pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 16s
@@ -53,10 +49,8 @@ class Level:
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
-                if ent.name == 'Player1':
-                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score}', C_GREEN, (10, 25))
-                if ent.name == 'Player2':
-                    self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score}', C_CYAN, (10, 45))
+                if ent.name == 'Player':
+                    self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_GREEN, (10, 25))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -71,8 +65,6 @@ class Level:
                         for ent in self.entity_list:
                             if isinstance(ent, Player) and ent.name == 'Player':
                                 player_score[0] = ent.score
-                            #if isinstance(ent, Player) and ent.name == 'Player2':
-                            #    player_score[1] = ent.score
                         return True
 
                 found_player = False
@@ -83,7 +75,6 @@ class Level:
                 if not found_player:
                     return False
 
-            # printed text
             self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
             self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
             self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
