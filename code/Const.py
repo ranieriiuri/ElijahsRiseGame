@@ -9,7 +9,7 @@ C_GREEN = (0, 128, 0)
 C_CYAN = (0, 128, 128)
 
 # E
-EVENT_ENEMY = pygame.USEREVENT + 1
+EVENT_ENEMIES = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
 ENTITY_SPEED = {
     'Level1Bg0': 0,

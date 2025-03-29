@@ -7,7 +7,7 @@ import pygame
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN, EVENT_TIMEOUT, \
+from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMIES, SPAWN_TIME, C_GREEN, C_CYAN, EVENT_TIMEOUT, \
     TIMEOUT_STEP, TIMEOUT_LEVEL
 from code.Enemy import Enemy
 from code.Entity import Entity
@@ -24,16 +24,16 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
-        player = EntityFactory.get_entity('Player1')
-        player.score = player_score[0]
+        player = EntityFactory.get_entity('Player')
+        #player.score = player_score[0]  --> liberar depois
         self.entity_list.append(player)
         #caso no menu tenha sido escolhido as opções de player 2 cooperative ou competitive...
-        if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
-            player = EntityFactory.get_entity('Player2')
-            player.score = player_score[1] #esse score é do P2, o do P1 é na posição 0
-            self.entity_list.append(player)
+        #if game_mode in [MENU_OPTION[1], MENU_OPTION[2]]:
+        #    player = EntityFactory.get_entity('Player2')
+        #    player.score = player_score[1] #esse score é do P2, o do P1 é na posição 0
+        #    self.entity_list.append(player)
             #usa um timer para criar os inimigos baseado na const criada no arq. 'const'... 'spawn' é criar um novo processo, essa const set 3s para criar um novo inimigo
-        pygame.time.set_timer(EVENT_ENEMY, SPAWN_TIME)
+        pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 16s
 
     def run(self, player_score: list[int]):
@@ -62,17 +62,17 @@ class Level:
                     pygame.quit()
                     sys.exit()
                     #qnd bater o tempo de criação do inimigo, escolher randômicamente entre 1 ou 2 e usar a factory p criar
-                if event.type == EVENT_ENEMY:
-                    choice = random.choice(('Enemy1', 'Enemy2'))
+                if event.type == EVENT_ENEMIES:
+                    choice = random.choice(('Tree', 'Bird', 'Wind', 'Dog'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP
                     if self.timeout == 0:
                         for ent in self.entity_list:
-                            if isinstance(ent, Player) and ent.name == 'Player1':
+                            if isinstance(ent, Player) and ent.name == 'Player':
                                 player_score[0] = ent.score
-                            if isinstance(ent, Player) and ent.name == 'Player2':
-                                player_score[1] = ent.score
+                            #if isinstance(ent, Player) and ent.name == 'Player2':
+                            #    player_score[1] = ent.score
                         return True
 
                 found_player = False

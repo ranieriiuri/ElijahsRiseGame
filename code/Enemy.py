@@ -38,13 +38,13 @@ class Enemy(Entity):
 
     def render(self, screen):
         #if self.blink_timer % 2 == 0:  # Alterna a visibilidade durante o piscamento
-        if self.exploding:
-            if self.explosion_index < len(self.explosion_frames):
-                screen.blit(self.explosion_frames[self.explosion_index], self.rect)
-                self.explosion_index += 1  # Avança para o próximo frame da explosão
-            else:
-                self.health = -1  # Marca para ser removido
-        else:
-            screen.blit(self.surf, self.rect)
+        #if self.exploding:
+        #    if self.explosion_index < len(self.explosion_frames):
+        #        screen.blit(self.explosion_frames[self.explosion_index], self.rect)
+        #        self.explosion_index += 1  # Avança para o próximo frame da explosão
+        #    else:
+        #        self.health = -1  # Marca para ser removido
+        #else:
+        screen.blit(self.surf, self.rect)
         #if self.blink_timer > 0:
         #    self.blink_timer -= 1  # Decrementa o blink_timer
