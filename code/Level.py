@@ -45,10 +45,10 @@ class Level:
                 else:
                     self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
-                if isinstance(ent, (Player, Enemy)):
-                    shoot = ent.shoot()
-                    if shoot is not None:
-                        self.entity_list.append(shoot)
+                #if isinstance(ent, (Player, Enemy)):
+                #    shoot = ent.shoot()
+                #    if shoot is not None:
+                #        self.entity_list.append(shoot)
                 if ent.name == 'Player':
                     self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_GREEN, (10, 25))
             for event in pygame.event.get():
