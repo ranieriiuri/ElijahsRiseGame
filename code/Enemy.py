@@ -8,13 +8,14 @@ from code.Entity import Entity
 
 class Enemy(Entity):
     """ Classe única para inimigos (pássaro e cachorro) """
-    def __init__(self, name: str, position: tuple, movement_type: str):
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, movement_type: str):
         """
         :param name: Nome do inimigo ("passaro" ou "cachorro")
         :param position: Posição inicial (x, y)
         :param movement_type: Tipo de movimento ("ground" para chão, "air" para voar)
         """
-        super().__init__(name, position)
+        super().__init__(name, position, sprite_sheet)
+        # o entity.render(screen) deve ser chamado no laço principal do jogo, para renderizar a construção das entidades na tela
         self.movement_type = movement_type
         self.z_index = 2 if movement_type == "air" else 3  # Aéreo fica atrás do terrestre
 
@@ -34,9 +35,6 @@ class Enemy(Entity):
         self.health -= damage
 
     def update(self):
-        """ Atualiza o estado do inimigo, incluindo a animação. """
+        """ Atualiza o estado do inimigo, incluindo a animação. Puxando os métodos q implementam essa lógica da classe mãe (Entity)."""
         self.move()
         self.update_animation()
-
-    def render(self, screen):
-        screen.blit(self.surf, self.rect)

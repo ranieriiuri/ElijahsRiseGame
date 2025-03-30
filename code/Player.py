@@ -39,8 +39,11 @@ class Player(Entity):
         self.health -= damage
         self.blink_timer = 40  # Define um tempo para piscar
 
+    # a player tem render pq tem a construcao de piscar quando houver dano
     def render(self, screen):
-        if self.blink_timer % 2 == 0:  # Pisca ao sofrer dano
-            screen.blit(self.surf, self.rect)  # Desenha a imagem atual (self.surf) no lugar correto
         if self.blink_timer > 0:
-            self.blink_timer -= 1 #decrementa o blink_timer ao renderizar
+            if self.blink_timer % 2 == 0:  # Pisca ao sofrer dano
+                screen.blit(self.surf, self.rect)  # Desenha a imagem atual (self.surf)
+            self.blink_timer -= 1  # Decrementa o blink_timer ao renderizar
+        else:
+            screen.blit(self.surf, self.rect)  # Desenha normalmente quando o blink_timer acabou

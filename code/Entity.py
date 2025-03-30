@@ -14,7 +14,6 @@ class Entity(ABC):
         self.frame_width = 64  #largura padrão (q é setada na var abaixo) p os quadros da sprite sheet
         self.frame_height = 64  #altura padrão (q é setada na var abaixo) p os quadros da sprite sheet
         self.rect = pygame.Rect(position[0], position[1], self.frame_width, self.frame_height)
-        #self.surf = pygame.image.load('./asset/' + name + '.png').convert_alpha()
         self.speed = 0
         self.health = ENTITY_HEALTH[self.name]
         self.damage = ENTITY_DAMAGE[self.name]

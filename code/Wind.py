@@ -23,6 +23,3 @@ class Wind(Entity):
         """Atualiza a posição e a animação do vento."""
         self.move()
         self.update_animation()
-
-    def render(self, screen):
-        screen.blit(self.surf, self.rect)
