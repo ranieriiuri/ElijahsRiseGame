@@ -8,7 +8,7 @@ from code.Const import ENTITY_HEALTH, ENTITY_DAMAGE, ENTITY_SCORE
 
 
 class Entity(ABC):
-    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface):
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface = None):
         self.name = name
         self.sprite_sheet = sprite_sheet #carrega a SS diretamente
         self.frame_width = 64  #largura padrão (q é setada na var abaixo) p os quadros da sprite sheet
