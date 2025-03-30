@@ -33,5 +33,10 @@ class Enemy(Entity):
     def take_damage(self, damage):
         self.health -= damage
 
+    def update(self):
+        """ Atualiza o estado do inimigo, incluindo a animação. """
+        self.move()
+        self.update_animation()
+
     def render(self, screen):
         screen.blit(self.surf, self.rect)
