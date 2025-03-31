@@ -1,20 +1,26 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import pygame.key
 
 from code.Const import ENTITY_SPEED, WIN_HEIGHT, WIN_WIDTH, PLAYER_KEY_UP, PLAYER_KEY_DOWN, PLAYER_KEY_LEFT, \
-    PLAYER_KEY_RIGHT, PLAYER_KEY_SHOOT, ENTITY_SHOT_DELAY
+    PLAYER_KEY_RIGHT
 from code.Entity import Entity
-#from code.PlayerShot import PlayerShot
 
 
 class Player(Entity):
-    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1, meat_bread_image: pygame.Surface = None):
         super().__init__(name, position, sprite_sheet, rows, cols)
 
         self.speed = ENTITY_SPEED[self.name] #setando velocidade padrão do player
         self.blink_timer = 0 # valor inicial do pisca por dano (muda quando tem colisão)
 
+        # contador de meat breads e abaixo o objetivo (q finaliza a fase com sucesso)
+        self.meat_bread_bar = 0
+        self.meat_bread_target = 3
+
+        # Definir a miniatura da MeatBread (Redimensionada para 30x30 px)
+        if meat_bread_image:
+            self.meat_bread_icon = pygame.transform.scale(meat_bread_image, (30, 30))
+        else:
+            self.meat_bread_icon = None
 
     def move(self):
         pressed_key = pygame.key.get_pressed() #obtém todas as teclas pressionadas no momento
@@ -38,6 +44,18 @@ class Player(Entity):
     def take_damage(self, damage):
         self.health -= damage
         self.blink_timer = 40  # Define um tempo para piscar
+
+    def collect_meat_bread(self):
+        """Este método será chamado quando o jogador coletar uma MeatBread."""
+        if self.meat_bread_bar < self.meat_bread_target:
+            self.meat_bread_bar += 1
+            if self.meat_bread_bar >= self.meat_bread_target:
+                return True  # Retorna True quando a meta de MeatBreads é alcançada
+        return False
+
+    def reset(self):
+        """Reseta o estado do jogador."""
+        self.meat_bread_bar = 0  # Reseta o contador de MeatBreads coletados
 
     # a player tem render pq tem a construcao de piscar quando houver dano
     def render(self, screen):
