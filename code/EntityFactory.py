@@ -21,7 +21,7 @@ class EntityFactory:
         mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
 
         match entity_name:
-            case 'Level':
+            case 'Level1':
                 list_bg = []
                 # 3 Bg diferentes, com suas camadas (nesse caso, assumindo que serão 7 de cada), ao terminar 1, carregar o outro em loop
                 for i in range(7):
