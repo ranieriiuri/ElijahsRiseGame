@@ -34,19 +34,7 @@ class Score:
             #se for modo normal (1 player)
             if game_mode == MENU_OPTION[0]:
                 score = player_score[0]
-            #se cooperative
-            #if game_mode == MENU_OPTION[1]:
-            #    score = (player_score[0] + player_score[1]) / 2
-            #    text = 'Enter Team name (4 characters):'
-            #se competitive...
-            #if game_mode == MENU_OPTION[2]:
-                #se P1 score maior q P2, salva o do P1
-            #    if player_score[0] >= player_score[1]:
-            #        score = player_score[0]
-                #senao, salva o do P2
-            #    else:
-            #        score = player_score[1]
-            #        text = 'Enter Player 2 name (4 characters):'
+
             #printa a descricao do score
             self.score_text(20, text, C_WHITE, SCORE_POS['EnterName'])
 

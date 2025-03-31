@@ -17,17 +17,20 @@ class Menu:
         self.rect = self.surf.get_rect(left=0, top=0)
 
     def run(self):
-        menu_option = 0
+        menu_option = 0 # padrão
+
         # carrega a musica
         pygame.mixer_music.load('./asset/Menu.mp3')
+
         # toca indefinidamente com '-1'
         pygame.mixer_music.play(-1)
         while True:
-            # DRAW IMAGES
+            # seta a imagem carregada acima pro menu e desenha o nome do jogo
             self.window.blit(source=self.surf, dest=self.rect)
             self.menu_text(50, "Mountain", C_ORANGE, ((WIN_WIDTH / 2), 70))
             self.menu_text(50, "Shooter", C_ORANGE, ((WIN_WIDTH / 2), 120))
 
+            # setando cores e dimensões conforme escolhemos pelas posições do menu
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
                     self.menu_text(20, MENU_OPTION[i], C_YELLOW, ((WIN_WIDTH / 2), 200 + 25 * i))
@@ -35,11 +38,12 @@ class Menu:
                     self.menu_text(20, MENU_OPTION[i], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * i))
             pygame.display.flip()
 
-            # Check for all events
+           # laço q verifica o uso do "x" para fechar o jogo, as opções escolhidas e, caso ENTER, seta a opção como escolhida
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()  # Close Window
                     quit()  # end pygame
+                # assimila cada tecla pra cima + enter ou pra baixo + enter como a escolha conforme opção
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_DOWN:  # DOWN KEY
                         if menu_option < len(MENU_OPTION) - 1:
@@ -51,9 +55,10 @@ class Menu:
                             menu_option -= 1
                         else:
                             menu_option = len(MENU_OPTION) - 1
-                    if event.key == pygame.K_RETURN:  # ENTER
+                    if event.key == pygame.K_RETURN:  # se apertar ENTER, essa é a opção escolhida
                         return MENU_OPTION[menu_option]
 
+    #metodo q constroi as características dos textos do menu
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()

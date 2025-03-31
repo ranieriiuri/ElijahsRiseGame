@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 import random
 import sys
 
@@ -25,7 +23,7 @@ class Level:
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
         player = EntityFactory.get_entity('Player')
-        #player.score = player_score[0]  --> liberar depois
+        player.score = player_score[0]
         self.entity_list.append(player)
 
             #usa um timer para criar os inimigos baseado na const criada no arq. 'const'... 'spawn' é criar um novo processo, essa const set 3s para criar um novo inimigo
