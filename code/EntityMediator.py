@@ -2,65 +2,58 @@ from code.Const import WIN_WIDTH
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.Player import Player
+from code.Wind import Wind
+from code.Tree import Tree
+
 
 class EntityMediator:
 
     @staticmethod
     def __verify_collision_window(ent: Entity):
-        if isinstance(ent, Enemy):
-            if ent.rect.right <= 0:
-                ent.health = 0
-        if isinstance(ent, PlayerShot):
-            if ent.rect.left >= WIN_WIDTH:
-                ent.health = 0
-        if isinstance(ent, EnemyShot):
+        """Verifica se a entidade saiu da tela e, se necessário, ajusta sua vida."""
+        if isinstance(ent, (Enemy, Wind, Tree)):
             if ent.rect.right <= 0:
                 ent.health = 0
 
     @staticmethod
     def __verify_collision_entity(ent1, ent2):
+        """Verifica colisões entre entidades e aplica efeitos."""
         valid_interaction = False
-        if isinstance(ent1, Enemy) and isinstance(ent2, PlayerShot):
+
+        # Define interações válidas. Levando em conta que o P1 pode estar como ent1 ou ent2 na lógica de colisão
+        if isinstance(ent1, Player) and isinstance(ent2, Enemy):
             valid_interaction = True
-        elif isinstance(ent1, PlayerShot) and isinstance(ent2, Enemy):
-            valid_interaction = True
-        elif isinstance(ent1, Player) and isinstance(ent2, EnemyShot):
-            valid_interaction = True
-        elif isinstance(ent1, EnemyShot) and isinstance(ent2, Player):
+        elif isinstance(ent1, Enemy) and isinstance(ent2, Player):
             valid_interaction = True
 
-        #aqui aplica-se os danos usando a lógica das 4 perguntas básicas q devem responder sim para haver dano: "Se a borda dir da ent1 estiver depois ou igual a borda esq da ent2, a esq da ent1 antes da dir da ent2, a borda de baixo da ent1 acima da borda superior da ent2 e a de cima da ent1 estiver abaixo da ent2", se todas as perguntas tiverem resposta sim, há colisão, então há dano contabilizado no atributo 'damage' q diminui a vida da ent
-        if valid_interaction:  # if valid_interaction == True:
+        # se a var q valida a colisão for true, define as 4 perguntas de colisão para garantir q só colida quando uma ent chegar no limite da borda da outra
+        if valid_interaction:
             if (ent1.rect.right >= ent2.rect.left and
                     ent1.rect.left <= ent2.rect.right and
                     ent1.rect.bottom >= ent2.rect.top and
                     ent1.rect.top <= ent2.rect.bottom):
 
-                # Chama take_damage apenas para o Player, já que só o Player tem esse método
-                if isinstance(ent1, (Player, Enemy)):  # Se ent1 for o Player
+                # O player recebe dano do inimigo
+                if isinstance(ent1, Player):
                     ent1.take_damage(ent2.damage)
-                if isinstance(ent2, (Player, Enemy)):  # Se ent2 for o Player
+                if isinstance(ent2, Player):
                     ent2.take_damage(ent1.damage)
 
-                ent2.health -= ent1.damage
+                # Marca a origem do dano
                 ent1.last_dmg = ent2.name
                 ent2.last_dmg = ent1.name
 
-    #o score à ent player1 ou 2 vem quando o atributo 'last_dmg' da ent enemy é preenchido
     @staticmethod
     def __give_score(enemy: Enemy, entity_list: list[Entity]):
-        if enemy.last_dmg == 'Player1Shot':
+        """Atribui score ao jogador responsável pelo dano final."""
+        if enemy.last_dmg == 'Player':
             for ent in entity_list:
-                if ent.name == 'Player1':
-                    ent.score += enemy.score
-        elif enemy.last_dmg == 'Player2Shot':
-            for ent in entity_list:
-                if ent.name == 'Player2':
+                if isinstance(ent, Player):
                     ent.score += enemy.score
 
-#esse metodo é o que de fato define um comportamento para casos de colisão das entidades com a borda da janela definida e tbm verifica colisão de todas as entidades entre si (inclusive das entidades tiros com as outras), chamando os metodos de colisão para janelas e entities definidos acima em um loop onde passa as entidades de cada iteração como param
     @staticmethod
     def verify_collision(entity_list: list[Entity]):
+        """Executa a verificação de colisões para todas as entidades."""
         for i in range(len(entity_list)):
             entity1 = entity_list[i]
             EntityMediator.__verify_collision_window(entity1)
@@ -70,14 +63,7 @@ class EntityMediator:
 
     @staticmethod
     def verify_health(entity_list: list[Entity]):
+        """Verifica a vida das entidades e remove aquelas que foram derrotadas."""
         for ent in entity_list:
-            if ent.health <= 0:
-                if isinstance(ent, Enemy) and ent.exploding:
-                    if ent.explosion_index >= len(ent.explosion_frames):
-                        EntityMediator.__give_score(ent, entity_list)
-                        entity_list.remove(ent)
-                elif isinstance(ent, Enemy):  # Se for inimigo, só inicia explosão
-                    ent.exploding = True
-            # Se o player ou o inimigo estiverem com vida e a contagem do piscar for maior que zero, diminui o tempo do piscar em cada iteração do numero setado pelo take_damage até zerar (qnd para de piscar)
-            if isinstance(ent, Player) and ent.blink_timer > 0:
-                 ent.blink_timer -= 1  # Diminui o contador do piscar
+            if isinstance(ent, Player) and ent.blink_timer > 0 and ent.health <= 0:
+                ent.blink_timer -= 1
