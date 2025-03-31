@@ -3,10 +3,10 @@ import pygame
 import os
 
 C_ORANGE = (255, 128, 0)
-C_YELLOW = (255, 255, 128)
+C_BLACK = (0, 0, 0)
 C_WHITE = (255, 255, 255)
-C_GREEN = (0, 128, 0)
-C_CYAN = (0, 128, 128)
+C_MILITARY_GREEN = (102, 124, 51)
+C_GRAY = (128, 128, 128)
 
 # E
 EVENT_ENEMIES = pygame.USEREVENT + 1
@@ -24,14 +24,11 @@ ENTITY_SPEED = {
     'Level2Bg2': 2,
     'Level2Bg3': 3,
     'Level2Bg4': 4,
-    'Player1': 3,
-    'Player1Shot': 1,
-    'Player2': 3,
-    'Player2Shot': 3,
-    'Enemy1': 1,
-    'Enemy1Shot': 5,
-    'Enemy2': 1,
-    'Enemy2Shot': 2,
+    'Player': 3,
+    'Tree': 1,
+    'Bird': 2,
+    'Wind': 2,
+    'Dog':1
 }
 
 ENTITY_HEALTH = {
@@ -40,21 +37,7 @@ ENTITY_HEALTH = {
     'Level1Bg2': 999,
     'Level1Bg3': 999,
     'Level1Bg4': 999,
-    'Level1Bg5': 999,
-    'Level1Bg6': 999,
-    'Level2Bg0': 999,
-    'Level2Bg1': 999,
-    'Level2Bg2': 999,
-    'Level2Bg3': 999,
-    'Level2Bg4': 999,
-    'Player1': 300,
-    'Player1Shot': 1,
-    'Player2': 300,
-    'Player2Shot': 1,
-    'Enemy1': 50,
-    'Enemy1Shot': 1,
-    'Enemy2': 60,
-    'Enemy2Shot': 1,
+    'Player': 300
 }
 
 ENTITY_DAMAGE = {
@@ -65,19 +48,7 @@ ENTITY_DAMAGE = {
     'Level1Bg4': 0,
     'Level1Bg5': 0,
     'Level1Bg6': 0,
-    'Level2Bg0': 0,
-    'Level2Bg1': 0,
-    'Level2Bg2': 0,
-    'Level2Bg3': 0,
-    'Level2Bg4': 0,
-    'Player1': 1,
-    'Player1Shot': 25,
-    'Player2': 1,
-    'Player2Shot': 20,
-    'Enemy1': 1,
-    'Enemy1Shot': 20,
-    'Enemy2': 1,
-    'Enemy2Shot': 15,
+    'Player': 1,
 }
 
 ENTITY_SCORE = {
@@ -88,46 +59,20 @@ ENTITY_SCORE = {
     'Level1Bg4': 0,
     'Level1Bg5': 0,
     'Level1Bg6': 0,
-    'Level2Bg0': 0,
-    'Level2Bg1': 0,
-    'Level2Bg2': 0,
-    'Level2Bg3': 0,
-    'Level2Bg4': 0,
-    'Player1': 0,
-    'Player1Shot': 0,
-    'Player2': 0,
-    'Player2Shot': 0,
-    'Enemy1': 100,
-    'Enemy1Shot': 0,
-    'Enemy2': 125,
-    'Enemy2Shot': 0,
-}
-
-ENTITY_SHOT_DELAY = {
-    'Player1': 20,
-    'Player2': 15,
-    'Enemy1': 100,
-    'Enemy2': 200,
+    'Player': 0
 }
 
 # M
-MENU_OPTION = ('NEW GAME 1P',
-               'NEW GAME 2P - COOPERATIVE',
-               'NEW GAME 2P - COMPETITIVE',
+MENU_OPTION = ('START GAME',
                'SCORE',
                'EXIT')
 
 # P
-PLAYER_KEY_UP = {'Player1': pygame.K_UP,
-                 'Player2': pygame.K_KP8}
-PLAYER_KEY_DOWN = {'Player1': pygame.K_DOWN,
-                   'Player2': pygame.K_KP2}
-PLAYER_KEY_LEFT = {'Player1': pygame.K_LEFT,
-                   'Player2': pygame.K_KP4}
-PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
-                    'Player2': pygame.K_KP6}
-PLAYER_KEY_SHOOT = {'Player1': pygame.K_SPACE,
-                    'Player2': pygame.K_o}
+PLAYER_KEY_UP = {'Player': pygame.K_UP}
+PLAYER_KEY_DOWN = {'Player': pygame.K_DOWN}
+PLAYER_KEY_LEFT = {'Player': pygame.K_LEFT}
+PLAYER_KEY_RIGHT = {'Player': pygame.K_RIGHT}
+PLAYER_KEY_SHOOT = {'Player': pygame.K_SPACE}
 
 # S
 SPAWN_TIME = 3000
@@ -160,14 +105,3 @@ SCORE_POS = {'Title': (WIN_WIDTH / 2, 50),
 #CONSTANTES USADAS EM EFEITOS ADICIONAIS
 # Caminho base do projeto (pasta raiz)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
-# Lista de frames da explosão
-EXPLOSION_FRAMES = [
-    os.path.join(BASE_DIR, "asset/EnemiesExplosion/explosion1.png"),
-    os.path.join(BASE_DIR, "asset/EnemiesExplosion/explosion2.png"),
-    os.path.join(BASE_DIR, "asset/EnemiesExplosion/explosion3.png"),
-    os.path.join(BASE_DIR, "asset/EnemiesExplosion/explosion4.png"),
-    os.path.join(BASE_DIR, "asset/EnemiesExplosion/explosion5.png"),
-]
-#const do som da explosão
-EXPLOSION_SOUND = os.path.join(BASE_DIR, "asset/EnemiesExplosion/EnemiesExplSound.wav")

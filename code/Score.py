@@ -5,7 +5,7 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 
-from code.Const import C_YELLOW, SCORE_POS, MENU_OPTION, C_WHITE
+from code.Const import C_MILITARY_GREEN, SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK
 from code.DBProxy import DBProxy
 
 
@@ -25,7 +25,7 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             #ao finalizar o jogo seta o nome do vencedor
-            self.score_text(48, 'CONGRATULATIONS, THE PROPHET IS FED!', C_YELLOW, SCORE_POS['Title'])
+            self.score_text(48, 'CONGRATULATIONS, THE PROPHET IS FED!', C_MILITARY_GREEN, SCORE_POS['Title'])
             # pede o nome da pessoa q ganhou com o P1 (por padrão)
             text = 'Enter Player name (4 characters):'
             score = player_score[0] #seta essa var com o param score recebido pelo metodo. tbm por padrão sendo a escolha do P1
@@ -36,7 +36,7 @@ class Score:
                 score = player_score[0]
 
             #printa a descricao do score
-            self.score_text(20, text, C_WHITE, SCORE_POS['EnterName'])
+            self.score_text(20, text, C_BLACK, SCORE_POS['EnterName'])
 
             for event in pygame.event.get():
                 # p conseguir fechar a janela no icone de fechar
@@ -72,18 +72,18 @@ class Score:
         pygame.mixer_music.load('./asset/Score.mp3')
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
-        self.score_text(48, 'TOP 10 SCORE', C_YELLOW, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     SCORE           DATE      ', C_YELLOW, SCORE_POS['Label'])
+        self.score_text(48, 'TOP 10 SCORE', C_BLACK, SCORE_POS['Title'])
+        self.score_text(20, 'NAME     SCORE           DATE      ', C_BLACK, SCORE_POS['Label'])
         #acessa o db e busca os 10 ultimos (recentes) pelo metodo criado no proxy e após, fecha-o
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
         db_proxy.close()
 
-        #laço que apresenta os dados-score dos players trazidos pelo metodo do proxy
+
         for player_score in list_score:
             # usando desestruturação p pegar cada dado dos players em 'list_score' já em uma var diferente, p formatar abaixo como queremos q cada uma apareça qnd chamados no método 'score_text'
             id_, name, score, date = player_score
-            self.score_text(20, f'{name}     {int(score):05d}     {date}', C_YELLOW,
+            self.score_text(20, f'{name}     {int(score):05d}     {date}', C_BLACK,
                             SCORE_POS[list_score.index(player_score)])
         #se fechar a janela no x, fecha, se enter
         while True:
@@ -99,7 +99,7 @@ class Score:
 
     #metodo q formata o texto do score
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_font: Font = pygame.font.SysFont(name="Orbitron", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
