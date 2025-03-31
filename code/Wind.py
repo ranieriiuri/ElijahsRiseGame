@@ -5,8 +5,8 @@ from code.Entity import Entity
 
 
 class Wind(Entity):
-    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface):
-        super().__init__(name, position, sprite_sheet)
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
+        super().__init__(name, position, sprite_sheet, rows, cols)
         self.z_index = 2  # Adiciona à camada do meio, à frente da Tree (que tem z_index 1)
 
     def move(self):

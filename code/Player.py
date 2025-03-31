@@ -9,11 +9,11 @@ from code.Entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface):
-        super().__init__(name, position, sprite_sheet)
-        # self.shot_delay = ENTITY_SHOT_DELAY[self.name]
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
+        super().__init__(name, position, sprite_sheet, rows, cols)
+
         self.speed = ENTITY_SPEED[self.name] #setando velocidade padrão do player
-        self.blink_timer = 0
+        self.blink_timer = 0 # valor inicial do pisca por dano (muda quando tem colisão)
 
 
     def move(self):
