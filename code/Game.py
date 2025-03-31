@@ -27,6 +27,8 @@ class Game:
 
                 if level_return: #se o nivel foi concluído
                     score.save(menu_return, player_score) # pela escolha do menu (nesse caso, apenas teremos [0] = Star game, por enquanto), salva o score
+                else:
+                    pass
 
             elif menu_return == MENU_OPTION[1]: #se opção 2 do menu, mostra a lista de scores
                 score.show()

@@ -18,6 +18,7 @@ class EntityFactory:
         dog_sprite_sheet = pygame.image.load('./assets/dog_sprite_sheet.png').convert_alpha()
         wind_sprite_sheet = pygame.image.load('./assets/wind_sprite_sheet.png').convert_alpha()
         tree_sprite_sheet = pygame.image.load('./assets/tree_sprite_sheet.png').convert_alpha()
+        mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
 
         match entity_name:
             case 'Level':
@@ -29,7 +30,7 @@ class EntityFactory:
                     list_bg.append(Background(f'Level1Bg3{i}', (WIN_WIDTH, 0)))
                 return list_bg
             case 'Player':
-                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet)  # Exemplo com bird
+                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, mb_image)  # Exemplo com bird
             case 'Tree':
                 return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT - 40), tree_sprite_sheet)
             case 'Wind':
