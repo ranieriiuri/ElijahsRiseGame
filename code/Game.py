@@ -26,12 +26,21 @@ class Game:
 
         while True:
             for event in pygame.event.get():
+                # Verifica o evento de fechamento da janela
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+
+                # Verifica pressionamento da tecla para minimizar a tela
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_MINUS:  # Se pressionar "-", minimiza a tela
                         pygame.display.iconify()
+
+                # Verifique se o jogador deseja sair da aplicação
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:  # Se pressionar "Q", fecha o jogo (em caso de teste)
+                        pygame.quit()
+                        sys.exit()
 
             score = Score(self.window)
             menu = Menu(self.window)

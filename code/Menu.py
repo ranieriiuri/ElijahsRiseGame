@@ -2,7 +2,7 @@ import pygame.image
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from code.Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_MILITARY_GREEN, C_GRAY, C_BLACK, WIN_HEIGHT
+from code.Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_MILITARY_GREEN, C_GRAY, C_BLACK, WIN_HEIGHT, C_GOLD
 
 
 class Menu:
@@ -26,13 +26,13 @@ class Menu:
         while True:
             # seta a imagem carregada acima pro menu e desenha o nome do jogo
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Elijah", C_MILITARY_GREEN, ((WIN_WIDTH / 2), 70))
-            self.menu_text(50, "Rises", C_GRAY, ((WIN_WIDTH / 2), 120))
+            self.menu_text(50, "Elijah", C_GOLD, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, "Rises", C_GOLD, ((WIN_WIDTH / 2), 120))
 
             # setando cores e dimensões conforme escolhemos pelas posições do menu
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(20, MENU_OPTION[i], C_ORANGE, ((WIN_WIDTH / 2), 200 + 25 * i))
+                    self.menu_text(20, MENU_OPTION[i], C_MILITARY_GREEN, ((WIN_WIDTH / 2), 200 + 25 * i))
                 else:
                     self.menu_text(20, MENU_OPTION[i], C_BLACK, ((WIN_WIDTH / 2), 200 + 25 * i))
             pygame.display.flip()

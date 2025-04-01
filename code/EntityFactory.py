@@ -18,7 +18,7 @@ class EntityFactory:
         dog_sprite_sheet = pygame.image.load('./asset/dog_sprite_sheet.png').convert_alpha()
         wind_sprite_sheet = pygame.image.load('./asset/wind_sprite_sheet.png').convert_alpha()
         tree_sprite_sheet = pygame.image.load('./asset/tree_sprite_sheet.png').convert_alpha()
-        mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
+        #mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
 
         match entity_name:
             case 'Level1':
