@@ -6,15 +6,32 @@ from code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
 from code.Level import Level
 from code.Menu import Menu
 from code.Score import Score
+from code.VideoManager import VideoManager
 
 
 class Game:
     def __init__(self):
         pygame.init()
         self.window = pygame.display.set_mode(size=(WIN_WIDTH, WIN_HEIGHT))
+        # Inicializa o gerenciador de vídeos
+        self.video_manager = VideoManager(self.window)
 
+        # Variáveis de vídeo do patrocinador
+        self.sponsor_video = "./asset/sponsor.mp4"
+        self.sponsor_audio = "./asset/sponsor_audio.mp3"  # Arquivo de áudio extraído
     def run(self):
+
+        # Vídeo do patrocinador
+        self.video_manager.play_video(self.sponsor_video, self.sponsor_audio)
+
         while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_MINUS:  # Se pressionar "-", minimiza a tela
+                        pygame.display.iconify()
 
             score = Score(self.window)
             menu = Menu(self.window)

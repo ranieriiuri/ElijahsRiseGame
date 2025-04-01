@@ -5,14 +5,16 @@ import pygame
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMIES, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, EVENT_TIMEOUT, \
-    TIMEOUT_STEP, TIMEOUT_LEVEL
+from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMIES, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
+    EVENT_TIMEOUT, \
+    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
 from code.Player import Player
 from code.VideoManager import VideoManager
+from code.Score import Score
 
 
 class Level:
@@ -22,6 +24,7 @@ class Level:
         self.name = name
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
+        self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
         player = EntityFactory.get_entity('Player')
         player.score = player_score[0]
         self.entity_list.append(player)
@@ -34,21 +37,17 @@ class Level:
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 16s
 
     def run(self, player_score: list[int]):
-        # vars dos videos
-        sponsor_video = "./asset/videos/sponsor.mp4"
-        intro_video = "./asset/videos/intro.mp4"
-        success_video = "./asset/videos/success.mp4"
-        failure_video = "./asset/videos/failure.mp4"
 
-        # video do patrocinador
-        self.video_manager.play_video(sponsor_video)
+        intro_video = "./asset/intro.mp4"
+        success_video = "./asset/success.mp4"
+        failure_video = "./asset/failure.mp4"
 
-        # Carregar e reproduzir a música de fundo
+        # Carregar e reproduzir música de fundo
         pygame.mixer_music.load(f'./asset/{self.name}.mp3')
         pygame.mixer_music.set_volume(0.3)
         pygame.mixer_music.play(-1)
 
-        # Exibição do vídeo de introdução assim que a fase começa
+        # Exibição do vídeo de introdução
         self.video_manager.play_video(intro_video)
 
         clock = pygame.time.Clock()
@@ -62,7 +61,7 @@ class Level:
                 ent.move()
 
                 if ent.name == 'Player':
-                    self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_GREEN, (10, 25))
+                    self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_MILITARY_GREEN, (10, 25))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -70,7 +69,7 @@ class Level:
                     sys.exit()
 
                 if event.type == EVENT_ENEMIES:
-                    choice = random.choice(('Tree', 'Bird', 'Wind', 'Dog'))
+                    choice = random.choice(('Tree', 'Wind', 'Dog')) #falta add 'Bird'
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
                 if event.type == EVENT_TIMEOUT:
@@ -79,12 +78,16 @@ class Level:
                         player = self.get_player()
                         player_score[0] = player.score
 
-                        # Vídeo final de sucesso se o jogador completar a fase
+                        # Vídeo final de sucesso ou falha
                         if self.check_meat_bread_bar():
                             self.video_manager.play_video(success_video)
                         else:
                             self.video_manager.play_video(failure_video)
 
+                        # Após o sucesso ou falha, salva o score
+                        if self.check_meat_bread_bar():
+                            score_handler = Score(self.window)
+                            score_handler.save(self.game_mode, player_score)  # Salva o score com o método save
                         return self.check_meat_bread_bar()
 
                 found_player = False
@@ -109,8 +112,9 @@ class Level:
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
+
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_font: Font = pygame.font.SysFont(name="Orbitron", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
         self.window.blit(source=text_surf, dest=text_rect)
@@ -131,10 +135,10 @@ class Level:
         meat_bread_width = bar_width / meat_bread_target  # Barra dividida igualmente pelo número alvo de MeatBreads
 
         # Desenha o fundo da barra
-        pygame.draw.rect(self.window, C_WHITE, (bar_x, bar_y, bar_width, bar_height))
+        pygame.draw.rect(self.window, C_BLACK, (bar_x, bar_y, bar_width, bar_height))
 
         # Desenha a parte preenchida da barra
-        pygame.draw.rect(self.window, C_CYAN, (bar_x, bar_y, meat_bread_bar * meat_bread_width, bar_height))
+        pygame.draw.rect(self.window, C_GRAY, (bar_x, bar_y, meat_bread_bar * meat_bread_width, bar_height))
 
         # Desenha os contadores de MeatBreads
         self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_WHITE, (bar_x + bar_width + 10, bar_y + 5))
