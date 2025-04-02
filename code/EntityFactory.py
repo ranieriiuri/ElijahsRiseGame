@@ -18,13 +18,13 @@ class EntityFactory:
         dog_sprite_sheet = pygame.image.load('./asset/dog_sprite_sheet.png').convert_alpha()
         wind_sprite_sheet = pygame.image.load('./asset/wind_sprite_sheet.png').convert_alpha()
         tree_sprite_sheet = pygame.image.load('./asset/tree_sprite_sheet.png').convert_alpha()
-        #mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
+        mb_image = pygame.image.load('./asset/mb_image.png').convert_alpha()
 
         match entity_name:
-            case 'Level1':
+            case 'Level1' | 'Level1Bg':
                 list_bg = []
                 # 3 Bg diferentes, com suas camadas (nesse caso, assumindo que serão 7 de cada), ao terminar 1, carregar o outro em loop
-                for i in range(7):
+                for i in range(5):
                     list_bg.append(Background(f'Level1Bg{i}', (0, 0)))
                     list_bg.append(Background(f'Level1Bg{i}', (WIN_WIDTH, 0)))
                     #list_bg.append(Background(f'Level1Bg3{i}', (WIN_WIDTH, 0)))
