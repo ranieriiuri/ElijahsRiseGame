@@ -12,9 +12,12 @@ from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
+from code.MeatBread import MeatBread
 from code.Player import Player
+from code.Tree import Tree
 from code.VideoManager import VideoManager
 from code.Score import Score
+from code.Wind import Wind
 
 
 class Level:
@@ -62,7 +65,7 @@ class Level:
         while True:
             clock.tick(60)
             for ent in self.entity_list:
-                if isinstance(ent, (Player, Enemy)):
+                if isinstance(ent, Player):
                     ent.render(self.window)
                 else:
                     self.window.blit(source=ent.surf, dest=ent.rect)
@@ -76,9 +79,10 @@ class Level:
                     pygame.quit()
                     sys.exit()
 
-                if event.type == EVENT_ENEMIES:
-                    choice = random.choice(('Tree', 'Wind', 'Dog')) #falta add 'Bird'
-                    self.entity_list.append(EntityFactory.get_entity(choice))
+                # paramos nas entidades inimigas
+                #if event.type == EVENT_ENEMIES:
+                #    choice = random.choice(('Tree', 'Wind', 'Dog')) #falta add 'Bird'
+                #    self.entity_list.append(EntityFactory.get_entity(choice))
 
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP

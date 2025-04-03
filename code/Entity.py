@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import pygame.image
 
-from code.Const import ENTITY_HEALTH, ENTITY_DAMAGE, ENTITY_SCORE
+from code.Const import ENTITY_HEALTH, ENTITY_DAMAGE, ENTITY_SCORE, WIN_HEIGHT, WIN_WIDTH
 
 
 class Entity(ABC):
@@ -13,19 +13,14 @@ class Entity(ABC):
         self.rows = rows  # Número de linhas na sprite sheet
         self.cols = cols  # Número de colunas na sprite sheet
 
-        # os métodos em no param "sprite_sheet" vêm do pygame.Surface e pegam a largura e altura em pixels de uma imagem
-        # tbm dividem esses valores pelas cols e rows passadas como param da class. caso a sprite sheet não seja fornecida, o valor será 64 pixels (um valor padrão).
-
-        # Verifica se a sprite_sheet foi carregada corretamente
-        if self.sprite_sheet is not None and isinstance(self.sprite_sheet, pygame.Surface):
-            print(f"DEBUG: sprite_sheet = {self.sprite_sheet}") #debug lines
-            print(f"DEBUG: rows = {self.rows}, cols = {self.cols}") #debug lines
+        # Se houver uma sprite_sheet, define largura e altura a partir dela
+        if self.sprite_sheet and isinstance(self.sprite_sheet, pygame.Surface):
             self.frame_width = self.sprite_sheet.get_width() // self.cols
             self.frame_height = self.sprite_sheet.get_height() // self.rows
         else:
-            print(f"Erro: sprite_sheet inválida para {self.name}: {self.sprite_sheet}")
-            self.frame_width = 64
-            self.frame_height = 64
+            # Definir valores padrão para classes que não usam sprite sheets
+            self.frame_width = WIN_WIDTH  # Exemplo: largura padrão
+            self.frame_height = WIN_HEIGHT  # Exemplo: altura padrão
 
         # essa var seta os valores de altura e largura nas posicoes do "Rect"
         self.rect = pygame.Rect(position[0], position[1], self.frame_width, self.frame_height)
@@ -52,6 +47,7 @@ class Entity(ABC):
             for col in range(self.cols):
                 frame = self.get_sprite(row, col)
                 self.frames.append(frame)
+        print(f"DEBUG: {self.name} - Frames carregados: {len(self.frames)}") #debugando
 
     def get_sprite(self, row_index, col_index):
         """Corta a sprite sheet para pegar um quadro específico."""

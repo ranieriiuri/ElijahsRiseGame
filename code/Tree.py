@@ -17,3 +17,7 @@ class Tree(Entity):
         """ Atualiza a posição e a animação da árvore chamando os métodos construídos na classe mãe """
         self.move()
         self.update_animation()
+
+    def render(self, screen):
+        self.update_animation()  # Atualiza o frame atual da animação
+        screen.blit(self.surf, self.rect)  # Renderiza na tela

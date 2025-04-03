@@ -37,7 +37,7 @@ class Player(Entity):
 #TESTING EFFECTS AROUND
     def take_damage(self, damage):
         self.health -= damage
-        self.blink_timer = 40  # Define um tempo para piscar
+        self.blink_timer = 20  # Define um tempo para piscar
 
     def collect_meat_bread(self):
         """Este método será chamado quando o jogador coletar uma MeatBread."""

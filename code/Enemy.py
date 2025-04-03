@@ -40,3 +40,7 @@ class Enemy(Entity):
         """ Atualiza o estado do inimigo, incluindo a animação. Puxando os métodos q implementam essa lógica da classe mãe (Entity)."""
         self.move()
         self.update_animation()
+
+    def render(self, screen):
+        self.update_animation()  # Atualiza o frame atual da animação
+        screen.blit(self.surf, self.rect)  # Renderiza na tela
