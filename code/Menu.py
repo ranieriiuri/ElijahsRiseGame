@@ -26,7 +26,7 @@ class Menu:
             self.window.blit(source=self.surf, dest=self.rect)
 
             # Atualiza o brilho do título "Elijah Rises"
-            self.brightness += self.brightness_direction * 2
+            self.brightness += self.brightness_direction * 0.5
             if self.brightness >= 50 or self.brightness <= 0:
                 self.brightness_direction *= -1
             dynamic_gold = (max(C_GOLD[0] - self.brightness, 0), max(C_GOLD[1] - self.brightness, 0), C_GOLD[2])

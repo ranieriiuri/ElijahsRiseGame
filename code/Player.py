@@ -6,7 +6,7 @@ from code.Entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1, meat_bread_image: pygame.Surface = None):
+    def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
         super().__init__(name, position, sprite_sheet, rows, cols)
 
         self.speed = ENTITY_SPEED[self.name] #setando velocidade padrão do player
@@ -15,12 +15,6 @@ class Player(Entity):
         # contador de meat breads e abaixo o objetivo (q finaliza a fase com sucesso)
         self.meat_bread_bar = 0
         self.meat_bread_target = 3
-
-        # Definir a miniatura da MeatBread (Redimensionada para 30x30 px)
-        if meat_bread_image:
-            self.meat_bread_icon = pygame.transform.scale(meat_bread_image, (30, 30))
-        else:
-            self.meat_bread_icon = None
 
     def move(self):
         pressed_key = pygame.key.get_pressed() #obtém todas as teclas pressionadas no momento

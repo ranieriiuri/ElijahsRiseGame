@@ -29,6 +29,9 @@ class Level:
         player.score = player_score[0]
         self.entity_list.append(player)
 
+        # Ícone meat breads
+        self.meat_bread_icon = pygame.image.load("./asset/meat_bread_icon.png").convert_alpha()
+
         # Inicializa o gerenciador de vídeos e seta os paths dos videos e audios deles como um atributo da class (q serão usados)
         self.video_manager = VideoManager(self.window)
 
@@ -125,28 +128,30 @@ class Level:
         self.window.blit(source=text_surf, dest=text_rect)
 
     def draw_meat_bread_bar(self):
-        """Desenha a barra de MeatBreads no canto superior esquerdo."""
+        """Desenha os ícones de MeatBreads coletados no canto superior esquerdo."""
         player = self.get_player()
         meat_bread_bar = player.meat_bread_bar
         meat_bread_target = player.meat_bread_target
 
-        # Definir as posições da barra e o tamanho dos itens
-        bar_width = 300
-        bar_height = 20
+        # Definir as posições da barra e o tamanho dos slots
         bar_x = 10
         bar_y = 40
+        icon_size = 24  # Tamanho dos ícones
+        spacing = 10  # Espaço entre os ícones
 
-        # Calcular a proporção com base nos MeatBreads coletados
-        meat_bread_width = bar_width / meat_bread_target  # Barra dividida igualmente pelo número alvo de MeatBreads
+        # Desenha os slots vazios
+        for i in range(meat_bread_target):
+            slot_x = bar_x + i * (icon_size + spacing)
+            pygame.draw.rect(self.window, C_GRAY, (slot_x, bar_y, icon_size, icon_size), 2)  # Borda do slot
 
-        # Desenha o fundo da barra
-        pygame.draw.rect(self.window, C_BLACK, (bar_x, bar_y, bar_width, bar_height))
+        # Desenha os MeatBreads coletados
+        for i in range(meat_bread_bar):
+            icon_x = bar_x + i * (icon_size + spacing)
+            self.window.blit(self.meat_bread_icon, (icon_x, bar_y))
 
-        # Desenha a parte preenchida da barra
-        pygame.draw.rect(self.window, C_GRAY, (bar_x, bar_y, meat_bread_bar * meat_bread_width, bar_height))
-
-        # Desenha os contadores de MeatBreads
-        self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_WHITE, (bar_x + bar_width + 10, bar_y + 5))
+        # Exibe o contador numérico ao lado da barra
+        self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_WHITE,
+                        (bar_x + (meat_bread_target * (icon_size + spacing)) + 10, bar_y + 5))
 
     def check_meat_bread_bar(self):
         """Verifica se o jogador completou a barra de MeatBreads (3) para concluir a fase."""

@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from abc import ABC, abstractmethod
 
 import pygame.image
@@ -20,6 +18,8 @@ class Entity(ABC):
 
         # Verifica se a sprite_sheet foi carregada corretamente
         if self.sprite_sheet is not None and isinstance(self.sprite_sheet, pygame.Surface):
+            print(f"DEBUG: sprite_sheet = {self.sprite_sheet}") #debug lines
+            print(f"DEBUG: rows = {self.rows}, cols = {self.cols}") #debug lines
             self.frame_width = self.sprite_sheet.get_width() // self.cols
             self.frame_height = self.sprite_sheet.get_height() // self.rows
         else:
