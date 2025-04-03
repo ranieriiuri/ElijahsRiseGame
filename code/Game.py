@@ -21,24 +21,20 @@ class Game:
         self.sponsor_audio = "./asset/sponsor_audio.mp3"  # Arquivo de áudio extraído
     def run(self):
 
+        allow_skip = False #  opção de passar 'sponsor' video desativada por padrão
+
         # Vídeo do patrocinador
         self.video_manager.play_video(self.sponsor_video, self.sponsor_audio)
 
         while True:
             for event in pygame.event.get():
-                # Verifica o evento de fechamento da janela
-                if event.type == pygame.QUIT:
+                if event.type == pygame.QUIT:   # Fechar jogo, caso clicado no 'x' da tela
                     pygame.quit()
                     sys.exit()
-
-                # Verifica pressionamento da tecla para minimizar a tela
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_MINUS:  # Se pressionar "-", minimiza a tela
+                    if event.key == pygame.K_MINUS:  # Minimizar janela, caso clicado na tela
                         pygame.display.iconify()
-
-                # Verifique se o jogador deseja sair da aplicação
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_q:  # Se pressionar "Q", fecha o jogo (em caso de teste)
+                    elif event.key == pygame.K_q:  # Fechar jogo, caso pressionado 'q'
                         pygame.quit()
                         sys.exit()
 

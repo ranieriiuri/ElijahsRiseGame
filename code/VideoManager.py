@@ -1,3 +1,5 @@
+import sys
+
 import cv2
 import pygame
 from code.Const import WIN_WIDTH, WIN_HEIGHT
@@ -5,8 +7,12 @@ from code.Const import WIN_WIDTH, WIN_HEIGHT
 class VideoManager:
     def __init__(self, window):
         self.window = window
+        self.video_running = False
+
 
     def play_video(self, video_path, audio_path):
+        self.video_running = True  # Indica que o vídeo está rodando
+
         # Abrindo o vídeo com OpenCV
         cap = cv2.VideoCapture(video_path)
 
@@ -59,9 +65,27 @@ class VideoManager:
             self.window.blit(frame_surface, (x_offset, y_offset))
             pygame.display.update()
 
+            # **Verifica eventos do Pygame**
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    cap.release()
+                    pygame.quit()
+                    sys.exit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:  # ENTER foi pressionado
+                        cap.release()
+                        if audio_path:
+                            pygame.mixer.music.stop()
+                        return  # Sai imediatamente da função (pula o vídeo)
+
             # Controlando o tempo de exibição (FPS)
             clock.tick(30)
 
         # Fechando o vídeo
         cap.release()
         pygame.mixer.music.stop()   # para audio após o video
+
+    def stop_video(self):
+        if self.video_running: # se a var definida estiver rodando (e nesse momento estará)
+            self.video_running = False # torne-a falsa (parar)

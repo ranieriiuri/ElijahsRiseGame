@@ -30,7 +30,7 @@ class Level:
         self.entity_list.append(player)
 
         # Ícone meat breads
-        self.meat_bread_icon = pygame.image.load("./asset/meat_bread_icon.png").convert_alpha()
+        self.meat_bread_icon = pygame.image.load("./asset/mb_image.png").convert_alpha()
 
         # Inicializa o gerenciador de vídeos e seta os paths dos videos e audios deles como um atributo da class (q serão usados)
         self.video_manager = VideoManager(self.window)
