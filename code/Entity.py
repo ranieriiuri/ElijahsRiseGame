@@ -17,8 +17,16 @@ class Entity(ABC):
 
         # os métodos em no param "sprite_sheet" vêm do pygame.Surface e pegam a largura e altura em pixels de uma imagem
         # tbm dividem esses valores pelas cols e rows passadas como param da class. caso a sprite sheet não seja fornecida, o valor será 64 pixels (um valor padrão).
-        self.frame_width = self.sprite_sheet.get_width() // self.cols if self.sprite_sheet else 64
-        self.frame_height = self.sprite_sheet.get_height() // self.rows if self.sprite_sheet else 64
+
+        # Verifica se a sprite_sheet foi carregada corretamente
+        if self.sprite_sheet is not None and isinstance(self.sprite_sheet, pygame.Surface):
+            self.frame_width = self.sprite_sheet.get_width() // self.cols
+            self.frame_height = self.sprite_sheet.get_height() // self.rows
+        else:
+            print(f"Erro: sprite_sheet inválida para {self.name}: {self.sprite_sheet}")
+            self.frame_width = 64
+            self.frame_height = 64
+
         # essa var seta os valores de altura e largura nas posicoes do "Rect"
         self.rect = pygame.Rect(position[0], position[1], self.frame_width, self.frame_height)
 

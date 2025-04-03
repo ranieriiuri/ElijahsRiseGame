@@ -29,8 +29,17 @@ class Level:
         player.score = player_score[0]
         self.entity_list.append(player)
 
-        # Inicializa o gerenciador de vídeos
+        # Inicializa o gerenciador de vídeos e seta os paths dos videos e audios deles como um atributo da class (q serão usados)
         self.video_manager = VideoManager(self.window)
+
+        self.intro_video = "./asset/intro_video.mp4"
+        self.intro_audio = "./asset/intro_audio.mp3"
+
+        self.success_video = "./asset/success_video.mp4"
+        self.success_audio = "./asset/success_audio.mp4"
+
+        self.failure_video = "./asset/failure_video.mp4"
+        self.failure_audio = "./asset/failure_audio.mp4"
 
         # Usa um timer para criar os inimigos baseado na constante SPAWN_TIME
         pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
@@ -38,17 +47,13 @@ class Level:
 
     def run(self, player_score: list[int]):
 
-        intro_video = "./asset/intro.mp4"
-        success_video = "./asset/success.mp4"
-        failure_video = "./asset/failure.mp4"
-
         # Carregar e reproduzir música de fundo
         pygame.mixer_music.load(f'./asset/{self.name}.mp3')
         pygame.mixer_music.set_volume(0.3)
         pygame.mixer_music.play(-1)
 
         # Exibição do vídeo de introdução
-        self.video_manager.play_video(intro_video)
+        self.video_manager.play_video(self.intro_video, self.intro_audio)
 
         clock = pygame.time.Clock()
         while True:
@@ -80,9 +85,9 @@ class Level:
 
                         # Vídeo final de sucesso ou falha
                         if self.check_meat_bread_bar():
-                            self.video_manager.play_video(success_video)
+                            self.video_manager.play_video(self.success_video, self.success_audio)
                         else:
-                            self.video_manager.play_video(failure_video)
+                            self.video_manager.play_video(self.failure_video, self.failure_audio)
 
                         # Após o sucesso ou falha, salva o score
                         if self.check_meat_bread_bar():
@@ -97,7 +102,7 @@ class Level:
 
                 if not found_player:
                     # O jogador morreu, falha no nível
-                    self.video_manager.play_video(failure_video)
+                    self.video_manager.play_video(self.failure_video, self.failure_audio)
                     return False
 
             # Desenha a barra de MeatBreads
