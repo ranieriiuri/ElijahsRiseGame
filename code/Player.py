@@ -7,12 +7,16 @@ from code.Entity import Entity
 
 class Player(Entity):
     def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
-        super().__init__(name, position, sprite_sheet, rows, cols)
+        # Redimensiona o sprite sheet antes de passar para a classe mãe
+        scale_factor = 0.2  # Ajuste esse valor como quiser (30% do tamanho original)
+        new_width = int(sprite_sheet.get_width() * scale_factor)
+        new_height = int(sprite_sheet.get_height() * scale_factor)
+        scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))
 
-        self.speed = ENTITY_SPEED[self.name] #setando velocidade padrão do player
-        self.blink_timer = 0 # valor inicial do pisca por dano (muda quando tem colisão)
+        super().__init__(name, position, scaled_sheet, rows, cols)
 
-        # contador de meat breads e abaixo o objetivo (q finaliza a fase com sucesso)
+        self.speed = ENTITY_SPEED[self.name]
+        self.blink_timer = 0
         self.meat_bread_bar = 0
         self.meat_bread_target = 3
         self.z_index = 0

@@ -31,7 +31,7 @@ class Level:
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'Bg'))
         player = EntityFactory.get_entity('Player')
         player.score = player_score[0]
-        self.entity_list.append(player)
+        self.entity_list.append(player) #--> Add o Player ao jogo assim q inicia a fase
 
         # Ícone meat breads
         self.meat_bread_icon = pygame.image.load("./asset/mb_image.png").convert_alpha()
@@ -43,10 +43,10 @@ class Level:
         self.intro_audio = "./asset/intro_audio.mp3"
 
         self.success_video = "./asset/success_video.mp4"
-        self.success_audio = "./asset/success_audio.mp4"
+        self.success_audio = "./asset/success_audio.mp3"
 
         self.failure_video = "./asset/failure_video.mp4"
-        self.failure_audio = "./asset/failure_audio.mp4"
+        self.failure_audio = "./asset/failure_audio.mp3"
 
         # Usa um timer para criar os inimigos baseado na constante SPAWN_TIME
         pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
@@ -148,7 +148,7 @@ class Level:
             self.window.blit(self.meat_bread_icon, (icon_x, bar_y))
 
         # Exibe o contador numérico ao lado da barra
-        self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_WHITE,
+        self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_MILITARY_GREEN,
                         (bar_x + (meat_bread_target * (icon_size + spacing)) + 10, bar_y + 5))
 
     def check_meat_bread_bar(self):
