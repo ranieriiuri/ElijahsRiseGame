@@ -33,7 +33,7 @@ class EntityFactory:
                     list_bg.append(Background(name, (WIN_WIDTH, 0), path))
                 return list_bg
             case 'Player':
-                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 7, 6)
+                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 8, 5)
             case 'Tree':
                 return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT - 40), tree_sprite_sheet, 3, 5)
             case 'Wind':

@@ -8,7 +8,7 @@ from code.Entity import Entity
 class Player(Entity):
     def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
         # Redimensiona o sprite sheet antes de passar para a classe mãe
-        scale_factor = 0.2  # Ajuste esse valor como quiser (30% do tamanho original)
+        scale_factor = 0.14  # Ajuste esse valor como quiser (30% do tamanho original)
         new_width = int(sprite_sheet.get_width() * scale_factor)
         new_height = int(sprite_sheet.get_height() * scale_factor)
         scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))

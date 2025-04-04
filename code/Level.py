@@ -54,17 +54,19 @@ class Level:
 
     def run(self, player_score: list[int]):
 
-        # Carregar e reproduzir música de fundo
-        pygame.mixer_music.load(f'./asset/{self.name}.mp3')
-        pygame.mixer_music.set_volume(0.3)
-        pygame.mixer_music.play(-1)
-
         # Exibição do vídeo de introdução
         self.video_manager.play_video(self.intro_video, self.intro_audio)
+
+        pygame.mixer.init()
+        pygame.mixer.music.load(f'./asset/{self.name}.mp3')
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
+
 
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
+
             for ent in sorted(self.entity_list, key=lambda e: getattr(e, 'z_index', 0)):
                 ent.render(self.window)
                 ent.move()
