@@ -19,6 +19,7 @@ from code.VideoManager import VideoManager
 from code.Score import Score
 from code.Wind import Wind
 
+# OBS: PAREI NAS 'BACKGROUND LAYERS' (VER CHATGPT)
 
 class Level:
     def __init__(self, window: Surface, name: str, game_mode: str, player_score: list[int]):
@@ -64,11 +65,8 @@ class Level:
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
-            for ent in self.entity_list:
-                if isinstance(ent, Player):
-                    ent.render(self.window)
-                else:
-                    self.window.blit(source=ent.surf, dest=ent.rect)
+            for ent in sorted(self.entity_list, key=lambda e: getattr(e, 'z_index', 0)):
+                ent.render(self.window)
                 ent.move()
 
                 if ent.name == 'Player':
@@ -91,24 +89,20 @@ class Level:
                         player_score[0] = player.score
 
                         # Vídeo final de sucesso ou falha
-                        if self.check_meat_bread_bar():
-                            self.video_manager.play_video(self.success_video, self.success_audio)
-                        else:
-                            self.video_manager.play_video(self.failure_video, self.failure_audio)
+                        success = self.check_meat_bread_bar()
+
+                        video = self.success_video if success else self.failure_video
+                        audio = self.success_audio if success else self.failure_audio
+
+                        self.video_manager.play_video(video, audio)
 
                         # Após o sucesso ou falha, salva o score
-                        if self.check_meat_bread_bar():
-                            score_handler = Score(self.window)
-                            score_handler.save(self.game_mode, player_score)  # Salva o score com o método save
-                        return self.check_meat_bread_bar()
+                        if success:
+                            Score(self.window).save(self.game_mode, player_score)
 
-                found_player = False
-                for ent in self.entity_list:
-                    if isinstance(ent, Player):
-                        found_player = True
+                        return success
 
-                if not found_player:
-                    # O jogador morreu, falha no nível
+                if self.get_player() is None:
                     self.video_manager.play_video(self.failure_video, self.failure_audio)
                     return False
 

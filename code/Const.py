@@ -1,6 +1,18 @@
-# C
 import pygame
 import os
+
+# B
+
+BG_IMAGE_PATHS = [
+    './asset/Level1Bg0.png',
+    './asset/Level1Bg1.png',
+    './asset/Level1Bg2.png',
+    './asset/Level1Bg3.png',
+    './asset/Level1Bg4.png'
+]
+
+
+# C
 
 C_ORANGE = (255, 128, 0)
 C_BLACK = (0, 0, 0)
@@ -18,8 +30,6 @@ ENTITY_SPEED = {
     'Level1Bg2': 2,
     'Level1Bg3': 3,
     'Level1Bg4': 4,
-    'Level1Bg5': 5,
-    'Level1Bg6': 6,
     'Level2Bg0': 0,
     'Level2Bg1': 1,
     'Level2Bg2': 2,

@@ -1,7 +1,7 @@
 import random
 import pygame
 from code.Background import Background
-from code.Const import WIN_WIDTH, WIN_HEIGHT
+from code.Const import WIN_WIDTH, WIN_HEIGHT, BG_IMAGE_PATHS
 from code.Enemy import Enemy
 from code.MeatBread import MeatBread
 from code.Player import Player
@@ -24,19 +24,13 @@ class EntityFactory:
             print(f"Erro ao carregar sprite sheet: {e}")
             return None
 
-        # Debug: Verifica se as imagens foram carregadas corretamente
-        print(f"DEBUG: player_sprite_sheet -> {player_sprite_sheet}")
-        print(f"DEBUG: dog_sprite_sheet -> {dog_sprite_sheet}")
-        print(f"DEBUG: wind_sprite_sheet -> {wind_sprite_sheet}")
-        print(f"DEBUG: tree_sprite_sheet -> {tree_sprite_sheet}")
-        print(f"DEBUG: mb_image -> {mb_image}")
-
         match entity_name:
             case 'Level1' | 'Level1Bg':
                 list_bg = []
-                for i in range(5):
-                    list_bg.append(Background(f'Level1Bg{i}', (0, 0)))
-                    list_bg.append(Background(f'Level1Bg{i}', (WIN_WIDTH, 0)))
+                for i, path in enumerate(BG_IMAGE_PATHS):
+                    name = f'Level1Bg{i}'
+                    list_bg.append(Background(name, (0, 0), path))
+                    list_bg.append(Background(name, (WIN_WIDTH, 0), path))
                 return list_bg
             case 'Player':
                 return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 7, 6)

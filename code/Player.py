@@ -15,6 +15,7 @@ class Player(Entity):
         # contador de meat breads e abaixo o objetivo (q finaliza a fase com sucesso)
         self.meat_bread_bar = 0
         self.meat_bread_target = 3
+        self.z_index = 0
 
     def move(self):
         pressed_key = pygame.key.get_pressed() #obtém todas as teclas pressionadas no momento
