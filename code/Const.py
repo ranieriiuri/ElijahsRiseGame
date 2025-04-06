@@ -42,6 +42,7 @@ C_MILITARY_GREEN = (102, 124, 51)
 C_GRAY = (128, 128, 128)
 C_GOLD = (255, 215, 0)
 
+
 # E
 EVENT_ENEMIES = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
@@ -50,25 +51,13 @@ ENTITY_SPEED = {
     'Level1Bg1':1,
     'Level1Bg2':2,
     'Level1Bg3':3,
-    'Level1Bg4':4,
+    'Level1Bg4':2,
     'Level1Bg5':0,
-    'Level1Bg2-0':0,
-    'Level1Bg2-1':1,
-    'Level1Bg2-2':2,
-    'Level1Bg2-3':3,
-    'Level1Bg2-4':4,
-    'Level1Bg2-5':5,
-    'Level1Bg2-6':6,
-    'Level1Bg3-0':0,
-    'Level1Bg3-1':1,
-    'Level1Bg3-2':2,
-    'Level1Bg3-3':3,
-    'Level1Bg3-4':4,
     'Player': 3,
-    'Tree': 1,
-    'Bird': 2,
-    'Wind': 2,
-    'Dog':1
+    'Tree': 3,
+    'Bird': 5,
+    'Wind': 7,
+    'Dog':6
 }
 
 ENTITY_HEALTH = {
@@ -78,19 +67,8 @@ ENTITY_HEALTH = {
     'Level1Bg3':999,
     'Level1Bg4':999,
     'Level1Bg5':999,
-    'Level1Bg2-0':999,
-    'Level1Bg2-1':999,
-    'Level1Bg2-2':999,
-    'Level1Bg2-3':999,
-    'Level1Bg2-4':999,
-    'Level1Bg2-5':999,
-    'Level1Bg2-6':999,
-    'Level1Bg3-0':999,
-    'Level1Bg3-1':999,
-    'Level1Bg3-2':999,
-    'Level1Bg3-3':999,
-    'Level1Bg3-4':999,
-    'Player': 300
+    'Player': 300,
+    'Dog':999
 }
 
 ENTITY_DAMAGE = {
@@ -100,19 +78,8 @@ ENTITY_DAMAGE = {
     'Level1Bg3':0,
     'Level1Bg4':0,
     'Level1Bg5':0,
-    'Level1Bg2-0':0,
-    'Level1Bg2-1':0,
-    'Level1Bg2-2':0,
-    'Level1Bg2-3':0,
-    'Level1Bg2-4':0,
-    'Level1Bg2-5':0,
-    'Level1Bg2-6':0,
-    'Level1Bg3-0':0,
-    'Level1Bg3-1':0,
-    'Level1Bg3-2':0,
-    'Level1Bg3-3':0,
-    'Level1Bg3-4':0,
     'Player': 1,
+    'Dog':0
 }
 ENTITY_SCORE = {
     'Level1Bg0':0,
@@ -121,19 +88,8 @@ ENTITY_SCORE = {
     'Level1Bg3':0,
     'Level1Bg4':0,
     'Level1Bg5':0,
-    'Level1Bg2-0':0,
-    'Level1Bg2-1':0,
-    'Level1Bg2-2':0,
-    'Level1Bg2-3':0,
-    'Level1Bg2-4':0,
-    'Level1Bg2-5':0,
-    'Level1Bg2-6':0,
-    'Level1Bg3-0':0,
-    'Level1Bg3-1':0,
-    'Level1Bg3-2':0,
-    'Level1Bg3-3':0,
-    'Level1Bg3-4':0,
-    'Player': 0
+    'Player': 0,
+    'Dog':0
 }
 
 

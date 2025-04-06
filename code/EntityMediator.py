@@ -99,7 +99,7 @@ class EntityMediator:
         """Atribui score ao jogador por pegar MeatBreads e decrementa por sofrer dano."""
         # Atribuindo score por coletar MeatBreads
         if player.meat_bread_bar > 0:
-            player.score += player.meat_bread_bar * 10  # Adiciona 10 pontos por cada MeatBread coletado
+            player.score += player.meat_bread_bar * 70  # Adiciona 70 pontos por cada MeatBread coletado
 
         # Penaliza o jogador por sofrer dano de Enemy, Tree ou Wind
         for ent in entity_list:
