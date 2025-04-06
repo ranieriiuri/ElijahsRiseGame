@@ -46,6 +46,8 @@ C_GOLD = (255, 215, 0)
 # E
 EVENT_ENEMIES = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
+EVENT_MB = pygame.USEREVENT + 1
+
 ENTITY_SPEED = {
     'Level1Bg0':0,
     'Level1Bg1':1,
@@ -110,6 +112,7 @@ PLAYER_KEY_SHOOT = {'Player': pygame.K_SPACE}
 
 # S
 SPAWN_TIME = 4000 # 4s
+MB_SPAWN_TIME = 8000 # 8s
 
 # T
 TIMEOUT_STEP = 20000  # 20s

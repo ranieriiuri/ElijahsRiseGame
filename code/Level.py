@@ -7,7 +7,7 @@ from pygame.font import Font
 
 from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMIES, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
     EVENT_TIMEOUT, \
-    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK
+    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -50,6 +50,7 @@ class Level:
 
         # Usa um timer para criar os inimigos baseado na constante SPAWN_TIME
         pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
+        pygame.time.set_timer(EVENT_MB, MB_SPAWN_TIME)
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 16s
 
     def run(self, player_score: list[int]):
@@ -68,6 +69,9 @@ class Level:
             clock.tick(60)
 
             for ent in sorted(self.entity_list, key=lambda e: getattr(e, 'z_index', 0)):
+                if hasattr(ent, 'update'):
+                    ent.update() # para verificar o update da meat bread
+
                 ent.render(self.window)
                 ent.move()
 
@@ -83,6 +87,10 @@ class Level:
                 if event.type == EVENT_ENEMIES:
                     choice = random.choice(('Dog', 'Tree')) # faltam 'Bird', 'Wind'
                     self.entity_list.append(EntityFactory.get_entity(choice))
+
+                # criando as meat breads baseadas no timer q baseia um spawn time na const 'EVENT_MB'
+                elif event.type == EVENT_MB:
+                    self.entity_list.append(EntityFactory.get_entity('MeatBread'))
 
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP

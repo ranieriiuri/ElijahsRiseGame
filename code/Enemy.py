@@ -13,7 +13,7 @@ class Enemy(Entity):
     def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, movement_type: str, rows: int = 1, cols: int = 1):
 
         # Escala fixa
-        scale_factor = 0.20 if name == "Dog" else 0.13  # Ajuste o fator conforme quiser / primeiro valor = Dog - segundo = Bird
+        scale_factor = 0.26 if name == "Dog" else 0.13  # Ajuste o fator conforme quiser / primeiro valor = Dog - segundo = Bird
         new_width = int(sprite_sheet.get_width() * scale_factor)
         new_height = int(sprite_sheet.get_height() * scale_factor)
         scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))

@@ -9,7 +9,7 @@ class Tree(Entity):
     def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
 
         # Escala fixa
-        scale_factor = 0.44
+        scale_factor = 0.38
         new_width = int(sprite_sheet.get_width() * scale_factor)
         new_height = int(sprite_sheet.get_height() * scale_factor)
         scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))
