@@ -14,6 +14,7 @@ from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
 from code.MeatBread import MeatBread
 from code.Player import Player
+from code.TransitionManager import TransitionManager
 from code.Tree import Tree
 from code.VideoManager import VideoManager
 from code.Score import Score
@@ -105,6 +106,7 @@ class Level:
                         audio = self.success_audio if success else self.failure_audio
 
                         self.video_manager.play_video(video, audio)
+                        TransitionManager.fade_out(self.window, duration=800)
 
                         # Após o sucesso ou falha, salva o score
                         if success:
@@ -114,6 +116,7 @@ class Level:
 
                 if self.get_player() is None:
                     self.video_manager.play_video(self.failure_video, self.failure_audio)
+                    TransitionManager.fade_out(self.window, duration=800)
                     return False
 
             # Desenha a barra de MeatBreads
