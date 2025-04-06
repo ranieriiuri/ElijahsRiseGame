@@ -54,10 +54,10 @@ ENTITY_SPEED = {
     'Level1Bg4':2,
     'Level1Bg5':0,
     'Player': 3,
-    'Tree': 3,
+    'Tree': 2,
     'Bird': 5,
     'Wind': 7,
-    'Dog':6
+    'Dog':7,
 }
 
 ENTITY_HEALTH = {
@@ -68,7 +68,8 @@ ENTITY_HEALTH = {
     'Level1Bg4':999,
     'Level1Bg5':999,
     'Player': 200,
-    'Dog':999
+    'Dog':999,
+    'Tree':999
 }
 
 ENTITY_DAMAGE = {
@@ -79,7 +80,8 @@ ENTITY_DAMAGE = {
     'Level1Bg4':0,
     'Level1Bg5':0,
     'Player': 1,
-    'Dog':30
+    'Dog':30,
+    'Tree':40
 }
 ENTITY_SCORE = {
     'Level1Bg0':0,
@@ -89,7 +91,8 @@ ENTITY_SCORE = {
     'Level1Bg4':0,
     'Level1Bg5':0,
     'Player': 0,
-    'Dog':0
+    'Dog':0,
+    'Tree':0
 }
 
 
@@ -106,7 +109,7 @@ PLAYER_KEY_RIGHT = {'Player': pygame.K_RIGHT}
 PLAYER_KEY_SHOOT = {'Player': pygame.K_SPACE}
 
 # S
-SPAWN_TIME = 3000
+SPAWN_TIME = 4000 # 4s
 
 # T
 TIMEOUT_STEP = 20000  # 20s

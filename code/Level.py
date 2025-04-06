@@ -81,10 +81,8 @@ class Level:
 
                 # paramos nas entidades inimigas
                 if event.type == EVENT_ENEMIES:
-                    self.entity_list.append(EntityFactory.get_entity('Dog'))
-                    # Usaremos isso assim q as outras estiverem prontas:
-                    #choice = random.choice(('Dog', 'Bird', 'Tree', 'Wind'))
-                    #self.entity_list.append(EntityFactory.get_entity(choice))
+                    choice = random.choice(('Dog', 'Tree')) # faltam 'Bird', 'Wind'
+                    self.entity_list.append(EntityFactory.get_entity(choice))
 
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP

@@ -35,11 +35,11 @@ class EntityFactory:
             case 'Player':
                 return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 5, 8)
             case 'Tree':
-                return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT - 40), tree_sprite_sheet, 3, 5)
+                return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT -  266), tree_sprite_sheet, 2, 3)
             case 'Wind':
-                return Wind('Wind', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 40)), wind_sprite_sheet, 2, 2)
+                return Wind('Wind', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 80)), wind_sprite_sheet, 2, 2)
             case 'Dog':
-                return Enemy('Dog', (WIN_WIDTH + 10, WIN_HEIGHT - 75), dog_sprite_sheet, 'ground', 2, 3)
+                return Enemy('Dog', (WIN_WIDTH + 10, WIN_HEIGHT - 79), dog_sprite_sheet, 'ground', 2, 3)
             # >> falta implementar o case do "Bird" <<
             case 'MeatBread':
                 return MeatBread('MeatBread', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 40)), mb_image) # usará no lugar da sprite sheet uma imagem estática, então, é só não passar 'rows' e 'cols', aí usa o padrão (1), ou seja, estática mesmo!

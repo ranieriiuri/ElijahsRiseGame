@@ -23,7 +23,7 @@ class Enemy(Entity):
 
         # o entity.render(screen) deve ser chamado no laço principal do jogo, para renderizar a construção das entidades na tela
         self.movement_type = movement_type
-        self.z_index = 2 if movement_type == "air" else 3  # Aéreo fica atrás do terrestre
+        self.z_index = 2 if movement_type == "air" else 1  # Aéreo fica atrás do terrestre
 
         # Comportamento de pulo apenas se for terrestre
         self.behavior = EntityBehavior(self, base_y=position[1]) if movement_type == "ground" else None

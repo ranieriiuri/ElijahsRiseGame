@@ -19,7 +19,7 @@ class Player(Entity):
         self.blink_timer = 0
         self.meat_bread_bar = 0
         self.meat_bread_target = 3
-        self.z_index = 0
+        self.z_index = 1
 
     def move(self):
         pressed_key = pygame.key.get_pressed() #obtém todas as teclas pressionadas no momento
