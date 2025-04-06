@@ -40,8 +40,8 @@ class Game:
                         sys.exit()
 
             score = Score(self.window)
-            menu = Menu(self.window)
             TransitionManager.fade_in(self.window, duration=800) # transição suave para início do menu
+            menu = Menu(self.window)
             menu_return = menu.run() # chama o método que seta o fundo do menu com a música, suas opções e etc
 
             if menu_return in MENU_OPTION[0]:

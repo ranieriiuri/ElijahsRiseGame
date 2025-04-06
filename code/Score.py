@@ -5,7 +5,7 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 
-from code.Const import C_MILITARY_GREEN, SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK
+from code.Const import C_MILITARY_GREEN, SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK, C_GOLD
 from code.DBProxy import DBProxy
 
 
@@ -25,7 +25,7 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             #ao finalizar o jogo seta o nome do vencedor
-            self.score_text(48, 'CONGRATULATIONS, THE PROPHET IS FED!', C_MILITARY_GREEN, SCORE_POS['Title'])
+            self.score_text(48, 'CONGRATULATIONS!', C_GOLD, SCORE_POS['Title'])
             # pede o nome da pessoa q ganhou com o P1 (por padrão)
             text = 'Enter Player name (4 characters):'
             score = player_score[0] #seta essa var com o param score recebido pelo metodo. tbm por padrão sendo a escolha do P1

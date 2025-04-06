@@ -1,11 +1,21 @@
+import pygame
+
+from code.Const import ENTITY_SPEED
 from code.Entity import Entity
 from code.EntityBehavior import EntityBehavior  # ← se ainda não estiver importado
 
 class MeatBread(Entity):
-    def __init__(self, name, position, sprite_sheet, value=1):
-        super().__init__(name, position, sprite_sheet, rows=1, cols=1)
+    def __init__(self, name, position, sprite_sheet, rows: int = 1, cols: int = 1):
 
-        self.value = value
+        scale_factor = 0.03  # Ajusta em porcentagem o tamanho da sprite_sheet em relação ao original
+        new_width = int(sprite_sheet.get_width() * scale_factor)
+        new_height = int(sprite_sheet.get_height() * scale_factor)
+        scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))
+
+        super().__init__(name, position, scaled_sheet, rows, cols)
+
+        self.z_index = 1
+
         self.blink_timer = 20
         self.collected = False
 
@@ -26,9 +36,10 @@ class MeatBread(Entity):
 
     def move(self):
         """Aplica movimento de flutuar se ainda não foi coletada."""
-        if not self.collected:
-            EntityBehavior.float_motion(self)
+        self.rect.centerx -= ENTITY_SPEED[self.name]
+        #if not self.collected:
+        #    EntityBehavior.float_motion(self)
 
     def render(self, screen):
         if not self.collected or self.blink_timer % 4 < 2:
-            super().render(screen)
+            screen.blit(self.surf, self.rect)  # Desenha normalmente quando o blink_timer acabou

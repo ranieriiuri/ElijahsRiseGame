@@ -2,7 +2,7 @@ import pygame
 
 class TransitionManager:
     @staticmethod
-    def fade_out(window, duration=800):
+    def fade_out(window, duration=2500):
         fade_surface = pygame.Surface(window.get_size()).convert_alpha()
         fade_surface.fill((0, 0, 0, 0))
 
@@ -24,7 +24,7 @@ class TransitionManager:
             clock.tick(60)
 
     @staticmethod
-    def fade_in(window, duration=800):
+    def fade_in(window, duration=2500):
         fade_surface = pygame.Surface(window.get_size()).convert_alpha()
         fade_surface.fill((0, 0, 0, 255))
 

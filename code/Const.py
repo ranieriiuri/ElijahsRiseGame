@@ -46,7 +46,7 @@ C_GOLD = (255, 215, 0)
 # E
 EVENT_ENEMIES = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
-EVENT_MB = pygame.USEREVENT + 1
+EVENT_MB = pygame.USEREVENT + 3
 
 ENTITY_SPEED = {
     'Level1Bg0':0,
@@ -59,7 +59,8 @@ ENTITY_SPEED = {
     'Tree': 2,
     'Bird': 5,
     'Wind': 7,
-    'Dog':7,
+    'Dog':9,
+    'MeatBread':1
 }
 
 ENTITY_HEALTH = {
@@ -71,7 +72,8 @@ ENTITY_HEALTH = {
     'Level1Bg5':999,
     'Player': 200,
     'Dog':999,
-    'Tree':999
+    'Tree':999,
+    'MeatBread':1
 }
 
 ENTITY_DAMAGE = {
@@ -83,7 +85,8 @@ ENTITY_DAMAGE = {
     'Level1Bg5':0,
     'Player': 1,
     'Dog':30,
-    'Tree':40
+    'Tree':40,
+    'MeatBread':0
 }
 ENTITY_SCORE = {
     'Level1Bg0':0,
@@ -94,7 +97,8 @@ ENTITY_SCORE = {
     'Level1Bg5':0,
     'Player': 0,
     'Dog':0,
-    'Tree':0
+    'Tree':0,
+    'MeatBread':0
 }
 
 
@@ -112,7 +116,7 @@ PLAYER_KEY_SHOOT = {'Player': pygame.K_SPACE}
 
 # S
 SPAWN_TIME = 4000 # 4s
-MB_SPAWN_TIME = 8000 # 8s
+MB_SPAWN_TIME = 7000 # 7s
 
 # T
 TIMEOUT_STEP = 20000  # 20s

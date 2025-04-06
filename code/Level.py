@@ -20,7 +20,14 @@ from code.VideoManager import VideoManager
 from code.Score import Score
 from code.Wind import Wind
 
-# OBS: PAREI NAS 'BACKGROUND LAYERS' (VER CHATGPT)
+# OBS:  falta verificar pq p score das meat breads não está sendo adicionado ao Player e implementar Como voltar ao menu após salvar o score !!!
+
+# Func global
+def load_and_scale(path, scale_factor):
+    img = pygame.image.load(path).convert_alpha()
+    w, h = img.get_width(), img.get_height()
+    return pygame.transform.scale(img, (int(w * scale_factor), int(h * scale_factor)))
+
 
 class Level:
     def __init__(self, window: Surface, name: str, game_mode: str, player_score: list[int]):
@@ -34,8 +41,8 @@ class Level:
         player.score = player_score[0]
         self.entity_list.append(player) #--> Add o Player ao jogo assim q inicia a fase
 
-        # Ícone meat breads
-        self.meat_bread_icon = pygame.image.load("./asset/mb_image.png").convert_alpha()
+        # Ímagem meat breads escalado pro tam de ícone
+        self.meat_bread_icon = load_and_scale("./asset/mb_image.png", 0.015) # usando uma função global para redimensionar o ícone
 
         # Inicializa o gerenciador de vídeos e seta os paths dos videos e audios deles como um atributo da class (q serão usados)
         self.video_manager = VideoManager(self.window)
@@ -80,6 +87,8 @@ class Level:
                     self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_MILITARY_GREEN, (10, 25))
 
             for event in pygame.event.get():
+                player = self.get_player()
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -93,28 +102,27 @@ class Level:
                 elif event.type == EVENT_MB:
                     self.entity_list.append(EntityFactory.get_entity('MeatBread'))
 
+                # verificando as hipoteses de falha ou sucesso do P1
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP
                     if self.timeout <= 0:
-                        player = self.get_player()
-                        player_score[0] = player.score
-
-                        # Vídeo final de sucesso ou falha
-                        success = self.check_meat_bread_bar()
-
-                        video = self.success_video if success else self.failure_video
-                        audio = self.success_audio if success else self.failure_audio
-
-                        self.video_manager.play_video(video, audio)
+                        self.video_manager.play_video(self.failure_video, self.failure_audio)
                         TransitionManager.fade_out(self.window, duration=800)
+                        return False
 
-                        # Após o sucesso ou falha, salva o score
-                        if success:
-                            Score(self.window).save(self.game_mode, player_score)
+                # Verificar constantemente se o player atingiu o objetivo
+                if player is not None and player.meat_bread_bar >= player.meat_bread_target:
+                    print("Barra de MeatBreads cheia! Fase concluída com sucesso.")
 
-                        return success
+                    player_score[0] = player.score
+                    self.video_manager.play_video(self.success_video, self.success_audio)
+                    TransitionManager.fade_out(self.window, duration=800)
+                    Score(self.window).save(self.game_mode, player_score)
 
-                if self.get_player() is None:
+                    return True  # Sai do nível
+
+                # Caso o player morra antes do tempo acabar
+                if player is None:
                     self.video_manager.play_video(self.failure_video, self.failure_audio)
                     TransitionManager.fade_out(self.window, duration=800)
                     return False
@@ -145,10 +153,10 @@ class Level:
         meat_bread_target = player.meat_bread_target
 
         # Definir as posições da barra e o tamanho dos slots
-        bar_x = 10
-        bar_y = 40
-        icon_size = 24  # Tamanho dos ícones
-        spacing = 10  # Espaço entre os ícones
+        bar_x = 15
+        bar_y = 30
+        icon_size = 32  # Tamanho dos ícones
+        spacing = 12  # Espaço entre os ícones
 
         # Desenha os slots vazios
         for i in range(meat_bread_target):
@@ -161,13 +169,13 @@ class Level:
             self.window.blit(self.meat_bread_icon, (icon_x, bar_y))
 
         # Exibe o contador numérico ao lado da barra
-        self.level_text(14, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_MILITARY_GREEN,
-                        (bar_x + (meat_bread_target * (icon_size + spacing)) + 10, bar_y + 5))
+        self.level_text(16, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_MILITARY_GREEN,
+                        (bar_x + (meat_bread_target * (icon_size + spacing)) + 20, bar_y + 6))
 
     def check_meat_bread_bar(self):
         """Verifica se o jogador completou a barra de MeatBreads (3) para concluir a fase."""
         player = self.get_player()
-        return player.meat_bread_bar >= 3  # Verifica se o jogador coletou 3 MeatBreads
+        return player.meat_bread_bar >= player.meat_bread_target  # Verifica se o jogador coletou 3 MeatBreads
 
     def get_player(self):
         """Retorna o jogador da lista de entidades."""
@@ -175,3 +183,4 @@ class Level:
             if isinstance(ent, Player):
                 return ent
         return None
+
