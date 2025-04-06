@@ -3,13 +3,34 @@ import os
 
 # B
 
-BG_IMAGE_PATHS = [
+BG1_PATHS = [
     './asset/Level1Bg0.png',
     './asset/Level1Bg1.png',
     './asset/Level1Bg2.png',
     './asset/Level1Bg3.png',
-    './asset/Level1Bg4.png'
+    './asset/Level1Bg4.png',
+    './asset/Level1Bg5.png'
 ]
+
+# P/ implantação posterior
+BG2_PATHS = [
+    './asset/Level1Bg2-0.png',
+    './asset/Level1Bg2-1.png',
+    './asset/Level1Bg2-2.png',
+    './asset/Level1Bg2-3.png',
+    './asset/Level1Bg2-4.png',
+    './asset/Level1Bg2-5.png',
+    './asset/Level1Bg2-6.png'
+]
+
+BG3_PATHS = [
+    './asset/Level1Bg3-0.png',
+    './asset/Level1Bg3-1.png',
+    './asset/Level1Bg3-2.png',
+    './asset/Level1Bg3-3.png',
+    './asset/Level1Bg3-4.png'
+]
+
 
 
 # C
@@ -25,16 +46,24 @@ C_GOLD = (255, 215, 0)
 EVENT_ENEMIES = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
 ENTITY_SPEED = {
-    'Level1Bg0': 0,
-    'Level1Bg1': 1,
-    'Level1Bg2': 2,
-    'Level1Bg3': 3,
-    'Level1Bg4': 4,
-    'Level2Bg0': 0,
-    'Level2Bg1': 1,
-    'Level2Bg2': 2,
-    'Level2Bg3': 3,
-    'Level2Bg4': 4,
+    'Level1Bg0':0,
+    'Level1Bg1':1,
+    'Level1Bg2':2,
+    'Level1Bg3':3,
+    'Level1Bg4':4,
+    'Level1Bg5':0,
+    'Level1Bg2-0':0,
+    'Level1Bg2-1':1,
+    'Level1Bg2-2':2,
+    'Level1Bg2-3':3,
+    'Level1Bg2-4':4,
+    'Level1Bg2-5':5,
+    'Level1Bg2-6':6,
+    'Level1Bg3-0':0,
+    'Level1Bg3-1':1,
+    'Level1Bg3-2':2,
+    'Level1Bg3-3':3,
+    'Level1Bg3-4':4,
     'Player': 3,
     'Tree': 1,
     'Bird': 2,
@@ -43,35 +72,70 @@ ENTITY_SPEED = {
 }
 
 ENTITY_HEALTH = {
-    'Level1Bg0': 999,
-    'Level1Bg1': 999,
-    'Level1Bg2': 999,
-    'Level1Bg3': 999,
-    'Level1Bg4': 999,
+    'Level1Bg0':999,
+    'Level1Bg1':999,
+    'Level1Bg2':999,
+    'Level1Bg3':999,
+    'Level1Bg4':999,
+    'Level1Bg5':999,
+    'Level1Bg2-0':999,
+    'Level1Bg2-1':999,
+    'Level1Bg2-2':999,
+    'Level1Bg2-3':999,
+    'Level1Bg2-4':999,
+    'Level1Bg2-5':999,
+    'Level1Bg2-6':999,
+    'Level1Bg3-0':999,
+    'Level1Bg3-1':999,
+    'Level1Bg3-2':999,
+    'Level1Bg3-3':999,
+    'Level1Bg3-4':999,
     'Player': 300
 }
 
 ENTITY_DAMAGE = {
-    'Level1Bg0': 0,
-    'Level1Bg1': 0,
-    'Level1Bg2': 0,
-    'Level1Bg3': 0,
-    'Level1Bg4': 0,
-    'Level1Bg5': 0,
-    'Level1Bg6': 0,
+    'Level1Bg0':0,
+    'Level1Bg1':0,
+    'Level1Bg2':0,
+    'Level1Bg3':0,
+    'Level1Bg4':0,
+    'Level1Bg5':0,
+    'Level1Bg2-0':0,
+    'Level1Bg2-1':0,
+    'Level1Bg2-2':0,
+    'Level1Bg2-3':0,
+    'Level1Bg2-4':0,
+    'Level1Bg2-5':0,
+    'Level1Bg2-6':0,
+    'Level1Bg3-0':0,
+    'Level1Bg3-1':0,
+    'Level1Bg3-2':0,
+    'Level1Bg3-3':0,
+    'Level1Bg3-4':0,
     'Player': 1,
 }
-
 ENTITY_SCORE = {
-    'Level1Bg0': 0,
-    'Level1Bg1': 0,
-    'Level1Bg2': 0,
-    'Level1Bg3': 0,
-    'Level1Bg4': 0,
-    'Level1Bg5': 0,
-    'Level1Bg6': 0,
+    'Level1Bg0':0,
+    'Level1Bg1':0,
+    'Level1Bg2':0,
+    'Level1Bg3':0,
+    'Level1Bg4':0,
+    'Level1Bg5':0,
+    'Level1Bg2-0':0,
+    'Level1Bg2-1':0,
+    'Level1Bg2-2':0,
+    'Level1Bg2-3':0,
+    'Level1Bg2-4':0,
+    'Level1Bg2-5':0,
+    'Level1Bg2-6':0,
+    'Level1Bg3-0':0,
+    'Level1Bg3-1':0,
+    'Level1Bg3-2':0,
+    'Level1Bg3-3':0,
+    'Level1Bg3-4':0,
     'Player': 0
 }
+
 
 # M
 MENU_OPTION = ('START GAME',

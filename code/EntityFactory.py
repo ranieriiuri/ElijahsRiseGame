@@ -1,7 +1,7 @@
 import random
 import pygame
 from code.Background import Background
-from code.Const import WIN_WIDTH, WIN_HEIGHT, BG_IMAGE_PATHS
+from code.Const import WIN_WIDTH, WIN_HEIGHT, BG1_PATHS, BG2_PATHS, BG3_PATHS
 from code.Enemy import Enemy
 from code.MeatBread import MeatBread
 from code.Player import Player
@@ -27,13 +27,13 @@ class EntityFactory:
         match entity_name:
             case 'Level1' | 'Level1Bg':
                 list_bg = []
-                for i, path in enumerate(BG_IMAGE_PATHS):
+                for i, path in enumerate(BG1_PATHS):
                     name = f'Level1Bg{i}'
                     list_bg.append(Background(name, (0, 0), path))
                     list_bg.append(Background(name, (WIN_WIDTH, 0), path))
                 return list_bg
             case 'Player':
-                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 8, 5)
+                return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 5, 8)
             case 'Tree':
                 return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT - 40), tree_sprite_sheet, 3, 5)
             case 'Wind':
