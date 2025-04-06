@@ -67,7 +67,7 @@ ENTITY_HEALTH = {
     'Level1Bg3':999,
     'Level1Bg4':999,
     'Level1Bg5':999,
-    'Player': 300,
+    'Player': 200,
     'Dog':999
 }
 
@@ -79,7 +79,7 @@ ENTITY_DAMAGE = {
     'Level1Bg4':0,
     'Level1Bg5':0,
     'Player': 1,
-    'Dog':0
+    'Dog':30
 }
 ENTITY_SCORE = {
     'Level1Bg0':0,

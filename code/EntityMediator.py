@@ -59,19 +59,34 @@ class EntityMediator:
                     ent1.collect(ent2)  # Player coleta MeatBread
                     EntityMediator.update_meat_bread_bar(ent2)  # Atualiza barra de MeatBreads
 
-                # Colisão entre Player e Enemy, Tree ou Wind causa dano
+                # Player sofre dano de Enemy, Tree ou Wind
                 if isinstance(ent1, Player) and isinstance(ent2, (Enemy, Tree, Wind)):
-                    damage = ent2.damage  # dano do inimigo, árvore ou vento
-                    if isinstance(ent2, Enemy):
-                        damage *= 0.8  # Player sofre 20% menos dano de inimigos
-                    elif isinstance(ent2, (Tree, Wind)):
-                        damage *= 0.5  # Player sofre 50% menos dano de árvores e vento
-                    ent1.take_damage(damage)
+                    if ent1.blink_timer <= 0:
+                        damage = ent2.damage
+                        if isinstance(ent2, Enemy):
+                            damage *= 0.8
+                        elif isinstance(ent2, (Tree, Wind)):
+                            damage *= 0.5
 
-                # Marca a origem do dano
-                ent1.last_dmg = ent2.name
-                ent2.last_dmg = ent1.name
+                        ent1.take_damage(damage)
+                        ent1.score -= damage * 2
+                        ent1.last_dmg = ent2.name
+                        ent2.last_dmg = ent1.name
+                        ent1.blink_timer = 60
 
+                elif isinstance(ent2, Player) and isinstance(ent1, (Enemy, Tree, Wind)):
+                    if ent2.blink_timer <= 0:
+                        damage = ent1.damage
+                        if isinstance(ent1, Enemy):
+                            damage *= 0.8
+                        elif isinstance(ent1, (Tree, Wind)):
+                            damage *= 0.5
+
+                        ent2.take_damage(damage)
+                        ent2.score -= damage * 2
+                        ent2.last_dmg = ent1.name
+                        ent1.last_dmg = ent2.name
+                        ent2.blink_timer = 60
 
     @staticmethod
     def verify_collision(entity_list: list[Entity]):
@@ -89,30 +104,23 @@ class EntityMediator:
 
     @staticmethod
     def verify_health(entity_list: list[Entity]):
-        """Verifica a vida das entidades e remove aquelas que foram derrotadas."""
-        for ent in entity_list:
-            if isinstance(ent, Player) and ent.blink_timer > 0 and ent.health <= 0:
-                ent.blink_timer -= 1
+        """Verifica a vida das entidades, pisca se for o Player (antes de remover) e remove aquelas que foram derrotadas."""
+        for ent in entity_list[:]:  # Copia da lista para iterar com segurança
+            if ent.health <= 0:
+                if isinstance(ent, Player):
+                    if ent.blink_timer > 0:
+                        ent.blink_timer -= 1
+                    # Se o blink_timer chegar a 0, remove o player da lista
+                    if ent.blink_timer <= 0:
+                        entity_list.remove(ent)
+                else:
+                    entity_list.remove(ent)
 
     @staticmethod
     def __give_score(player: Player, entity_list: list[Entity]):
-        """Atribui score ao jogador por pegar MeatBreads e decrementa por sofrer dano."""
-        # Atribuindo score por coletar MeatBreads
+        """Atribui score ao jogador por pegar MeatBreads."""
         if player.meat_bread_bar > 0:
-            player.score += player.meat_bread_bar * 70  # Adiciona 70 pontos por cada MeatBread coletado
-
-        # Penaliza o jogador por sofrer dano de Enemy, Tree ou Wind
-        for ent in entity_list:
-            if isinstance(ent, (Enemy, Tree, Wind)) and ent.last_dmg == 'Player':
-                # Subtrai pontos do jogador com base no dano recebido
-                damage = ent.damage
-                if isinstance(ent, Enemy):
-                    damage *= 0.8  # Dano reduzido para Enemy
-                elif isinstance(ent, (Tree, Wind)):
-                    damage *= 0.5  # Dano reduzido para Tree e Wind
-
-                # Subtrai pontos do jogador com base no dano
-                player.score -= damage * 2  # Multiplicador de penalidade de 2x para o dano
+            player.score += player.meat_bread_bar * 50
 
     @staticmethod
     def update_meat_bread_bar(player: Player):
