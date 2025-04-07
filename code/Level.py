@@ -7,7 +7,7 @@ from pygame.font import Font
 
 from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
     EVENT_TIMEOUT, \
-    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME, EVENT_OBSTACLE, WIN_WIDTH
+    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME, EVENT_OBSTACLE, WIN_WIDTH, C_GOLD
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -84,7 +84,7 @@ class Level:
                 ent.move()
 
                 if ent.name == 'Player':
-                    self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_MILITARY_GREEN, (10, 25))
+                    self.level_text(18, f'Player - Health: {ent.health} | Score: {ent.score}', C_GRAY, (10, 25))
 
             # verifica eventos gerais da fase
             for event in pygame.event.get():
@@ -129,9 +129,9 @@ class Level:
             # Desenha a barra de MeatBreads
             self.draw_meat_bread_bar()
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
-            self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
+            self.level_text(18, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_GRAY, (10, 5))
+            # self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
+            # self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
             pygame.display.flip()
 
             # Colisões e verificação de saúde
@@ -162,20 +162,20 @@ class Level:
         bar_y = 10  # Margem superior
 
         # infos do player (esquerda)
-        self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
+        self.level_text(18, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_GRAY, (10, 5))
 
         # contador de MeatBreads (direita)
         text = f'MeatBreads: {meat_bread_bar}/{meat_bread_target}'
-        text_size = 14
+        text_size = 18
         font = pygame.font.SysFont("Old English Text MT", text_size)
-        text_surface = font.render(text, True, C_MILITARY_GREEN)
+        text_surface = font.render(text, True, C_GRAY)
         text_width = text_surface.get_width()
-        self.level_text(text_size, text, C_MILITARY_GREEN, (WIN_WIDTH - text_width - 10, 5))
+        self.level_text(text_size, text, C_GRAY, (WIN_WIDTH - text_width - 10, 5))
 
         # barra de MeatBreads (centralizada no topo)
         for i in range(meat_bread_target):
             slot_x = bar_x + i * (icon_size + spacing)
-            pygame.draw.rect(self.window, C_GRAY, (slot_x, bar_y, icon_size, icon_size), 2)
+            pygame.draw.rect(self.window, C_GOLD, (slot_x, bar_y, icon_size, icon_size), 2)
 
         for i in range(meat_bread_bar):
             icon_x = bar_x + i * (icon_size + spacing)
