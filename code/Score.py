@@ -5,14 +5,15 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 
-from code.Const import C_MILITARY_GREEN, SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK, C_GOLD
+from code.Const import SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK, C_GOLD, WIN_WIDTH, WIN_HEIGHT
 from code.DBProxy import DBProxy
 
 
 class Score:
     def __init__(self, window: Surface):
         self.window = window
-        self.surf = pygame.image.load('./asset/ScoreBg.png').convert_alpha()
+        self.surf = pygame.transform.scale(pygame.image.load('./asset/ScoreBg.png').convert_alpha(),(WIN_WIDTH, WIN_HEIGHT)
+)
         self.rect = self.surf.get_rect(left=0, top=0)
         pass
 
@@ -25,7 +26,7 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             #ao finalizar o jogo seta o nome do vencedor
-            self.score_text(48, 'CONGRATULATIONS!', C_MILITARY_GREEN, SCORE_POS['Title'])
+            self.score_text(48, 'CONGRATULATIONS!', C_BLACK, SCORE_POS['Title'])
             # pede o nome da pessoa q ganhou com o P1 (por padrão)
             text = 'Enter Player name (4 characters):'
             score = player_score[0] #seta essa var com o param score recebido pelo metodo. tbm por padrão sendo a escolha do P1
@@ -36,7 +37,7 @@ class Score:
                 score = player_score[0]
 
             #printa a descricao do score
-            self.score_text(20, text, C_BLACK, SCORE_POS['EnterName'])
+            self.score_text(20, text, C_GOLD, SCORE_POS['EnterName'])
 
             for event in pygame.event.get():
                 # p conseguir fechar a janela no icone de fechar
@@ -61,7 +62,7 @@ class Score:
                             #vai incrementando os carac à var 'name'
                             name += event.unicode
             #printa o text de score da name construída, inclusive sua score position correta
-            self.score_text(20, name, C_GOLD, SCORE_POS['Name'])
+            self.score_text(20, name, C_WHITE, SCORE_POS['Name'])
 
             #OBS SOBRE ALINHA ABAIXO: O pygame trabalha com um buffer duplo! Os elementos (sprites, textos, fundos e etc) ficam em um buffer oculto, enquanto o buffer visível é o ultimo alterado por essa linha. Então quando criamos essa l inha 'pygame.display.flip()', o Pygame atualiza a tela com tudo que foi desenhado desde o último frame.
             pygame.display.flip()
@@ -73,7 +74,7 @@ class Score:
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
         self.score_text(48, 'TOP 10 SCORE', C_BLACK, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     SCORE           DATE      ', C_MILITARY_GREEN, SCORE_POS['Label'])
+        self.score_text(20, 'NAME     SCORE           DATE      ', C_BLACK, SCORE_POS['Label'])
         #acessa o db e busca os 10 ultimos (recentes) pelo metodo criado no proxy e após, fecha-o
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
@@ -98,8 +99,10 @@ class Score:
             pygame.display.flip() #atualiza o buffer
 
     #metodo q formata o texto do score
+
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Orbitron", size=text_size)
+        # Carrega a fonte MedievalSharp diretamente do arquivo
+        text_font: Font = pygame.font.Font("./asset/MedievalSharp.ttf", text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)

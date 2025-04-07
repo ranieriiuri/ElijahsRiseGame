@@ -33,7 +33,7 @@ class Menu:
 
             # Exibe o título com efeito de brilho
             self.menu_text(70, "Elijah Rises", dynamic_gold, ((WIN_WIDTH - 260), 70))
-            self.menu_text(15, "A journey of faith n' bravery", C_BLACK, ((WIN_WIDTH - 260), 105))
+            self.menu_text(18, "A journey of faith n' bravery", C_WHITE, ((WIN_WIDTH - 260), 105))
 
             # Renderiza as opções do menu
             for i in range(len(MENU_OPTION)):
