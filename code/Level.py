@@ -5,9 +5,9 @@ import pygame
 from pygame import Surface, Rect
 from pygame.font import Font
 
-from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMIES, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
+from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
     EVENT_TIMEOUT, \
-    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME
+    TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME, EVENT_OBSTACLE, WIN_WIDTH
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -57,7 +57,7 @@ class Level:
         self.failure_audio = "./asset/failure_audio.mp3"
 
         # Usa um timer para criar os inimigos baseado na constante SPAWN_TIME
-        pygame.time.set_timer(EVENT_ENEMIES, SPAWN_TIME)
+        pygame.time.set_timer(EVENT_OBSTACLE, SPAWN_TIME)
         pygame.time.set_timer(EVENT_MB, MB_SPAWN_TIME)
         pygame.time.set_timer(EVENT_TIMEOUT, TIMEOUT_STEP)  # 16s
 
@@ -86,6 +86,7 @@ class Level:
                 if ent.name == 'Player':
                     self.level_text(14, f'Player - Health: {ent.health} | Score: {ent.score}', C_MILITARY_GREEN, (10, 25))
 
+            # verifica eventos gerais da fase
             for event in pygame.event.get():
                 player = self.get_player()
 
@@ -93,16 +94,16 @@ class Level:
                     pygame.quit()
                     sys.exit()
 
-                # paramos nas entidades inimigas
-                if event.type == EVENT_ENEMIES:
+                # cria obstáculos
+                if event.type == EVENT_OBSTACLE:
                     choice = random.choice(('Dog', 'Tree')) # faltam 'Bird', 'Wind'
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
-                # criando as meat breads baseadas no timer q baseia um spawn time na const 'EVENT_MB'
+                # criando as meat breads baseadas no timer q usa um spawn time e a const EVENT_MB (informa novo evento ao pygame)
                 elif event.type == EVENT_MB:
                     self.entity_list.append(EntityFactory.get_entity('MeatBread'))
 
-                # verificando as hipoteses de falha ou sucesso do P1
+                # verificando as hipóteses de falha do P1
                 if event.type == EVENT_TIMEOUT:
                     self.timeout -= TIMEOUT_STEP
                     if self.timeout <= 0:
@@ -112,8 +113,6 @@ class Level:
 
                 # Verificar constantemente se o player atingiu o objetivo
                 if player is not None and player.meat_bread_bar >= player.meat_bread_target:
-                    print("Barra de MeatBreads cheia! Fase concluída com sucesso.")
-
                     player_score[0] = player.score
                     self.video_manager.play_video(self.success_video, self.success_audio)
                     TransitionManager.fade_out(self.window, duration=800)
@@ -147,30 +146,40 @@ class Level:
         self.window.blit(source=text_surf, dest=text_rect)
 
     def draw_meat_bread_bar(self):
-        """Desenha os ícones de MeatBreads coletados no canto superior esquerdo."""
+        """Desenha a barra de MeatBreads centralizada no topo da tela, com infos laterais."""
+
         player = self.get_player()
         meat_bread_bar = player.meat_bread_bar
         meat_bread_target = player.meat_bread_target
 
-        # Definir as posições da barra e o tamanho dos slots
-        bar_x = 15
-        bar_y = 30
-        icon_size = 32  # Tamanho dos ícones
-        spacing = 12  # Espaço entre os ícones
+        # configurações visuais
+        icon_size = 26
+        spacing = 10
+        total_width = meat_bread_target * icon_size + (meat_bread_target - 1) * spacing
 
-        # Desenha os slots vazios
+        # calcula posição X centralizada da barra
+        bar_x = (WIN_WIDTH - total_width) // 2
+        bar_y = 10  # Margem superior
+
+        # infos do player (esquerda)
+        self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_WHITE, (10, 5))
+
+        # contador de MeatBreads (direita)
+        text = f'MeatBreads: {meat_bread_bar}/{meat_bread_target}'
+        text_size = 14
+        font = pygame.font.SysFont("Orbitron", text_size)
+        text_surface = font.render(text, True, C_MILITARY_GREEN)
+        text_width = text_surface.get_width()
+        self.level_text(text_size, text, C_MILITARY_GREEN, (WIN_WIDTH - text_width - 10, 5))
+
+        # barra de MeatBreads (centralizada no topo)
         for i in range(meat_bread_target):
             slot_x = bar_x + i * (icon_size + spacing)
-            pygame.draw.rect(self.window, C_GRAY, (slot_x, bar_y, icon_size, icon_size), 2)  # Borda do slot
+            pygame.draw.rect(self.window, C_GRAY, (slot_x, bar_y, icon_size, icon_size), 2)
 
-        # Desenha os MeatBreads coletados
         for i in range(meat_bread_bar):
             icon_x = bar_x + i * (icon_size + spacing)
             self.window.blit(self.meat_bread_icon, (icon_x, bar_y))
-
-        # Exibe o contador numérico ao lado da barra
-        self.level_text(16, f'MeatBreads: {meat_bread_bar}/{meat_bread_target}', C_MILITARY_GREEN,
-                        (bar_x + (meat_bread_target * (icon_size + spacing)) + 20, bar_y + 6))
 
     def check_meat_bread_bar(self):
         """Verifica se o jogador completou a barra de MeatBreads (3) para concluir a fase."""

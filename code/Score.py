@@ -12,7 +12,7 @@ from code.DBProxy import DBProxy
 class Score:
     def __init__(self, window: Surface):
         self.window = window
-        self.surf = pygame.image.load('./asset/ScoreBg.jpeg').convert_alpha()
+        self.surf = pygame.image.load('./asset/ScoreBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
         pass
 
@@ -25,7 +25,7 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             #ao finalizar o jogo seta o nome do vencedor
-            self.score_text(48, 'CONGRATULATIONS!', C_GOLD, SCORE_POS['Title'])
+            self.score_text(48, 'CONGRATULATIONS!', C_MILITARY_GREEN, SCORE_POS['Title'])
             # pede o nome da pessoa q ganhou com o P1 (por padrão)
             text = 'Enter Player name (4 characters):'
             score = player_score[0] #seta essa var com o param score recebido pelo metodo. tbm por padrão sendo a escolha do P1
@@ -61,7 +61,7 @@ class Score:
                             #vai incrementando os carac à var 'name'
                             name += event.unicode
             #printa o text de score da name construída, inclusive sua score position correta
-            self.score_text(20, name, C_WHITE, SCORE_POS['Name'])
+            self.score_text(20, name, C_GOLD, SCORE_POS['Name'])
 
             #OBS SOBRE ALINHA ABAIXO: O pygame trabalha com um buffer duplo! Os elementos (sprites, textos, fundos e etc) ficam em um buffer oculto, enquanto o buffer visível é o ultimo alterado por essa linha. Então quando criamos essa l inha 'pygame.display.flip()', o Pygame atualiza a tela com tudo que foi desenhado desde o último frame.
             pygame.display.flip()
@@ -73,7 +73,7 @@ class Score:
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
         self.score_text(48, 'TOP 10 SCORE', C_BLACK, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     SCORE           DATE      ', C_BLACK, SCORE_POS['Label'])
+        self.score_text(20, 'NAME     SCORE           DATE      ', C_MILITARY_GREEN, SCORE_POS['Label'])
         #acessa o db e busca os 10 ultimos (recentes) pelo metodo criado no proxy e após, fecha-o
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
@@ -83,7 +83,7 @@ class Score:
         for player_score in list_score:
             # usando desestruturação p pegar cada dado dos players em 'list_score' já em uma var diferente, p formatar abaixo como queremos q cada uma apareça qnd chamados no método 'score_text'
             id_, name, score, date = player_score
-            self.score_text(20, f'{name}     {int(score):05d}     {date}', C_BLACK,
+            self.score_text(20, f'{name}     {int(score):05d}     {date}', C_WHITE,
                             SCORE_POS[list_score.index(player_score)])
         #se fechar a janela no x, fecha, se enter
         while True:

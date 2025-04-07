@@ -32,14 +32,14 @@ class Menu:
             dynamic_gold = (max(C_GOLD[0] - self.brightness, 0), max(C_GOLD[1] - self.brightness, 0), C_GOLD[2])
 
             # Exibe o título com efeito de brilho
-            self.menu_text(50, "Elijah", dynamic_gold, ((WIN_WIDTH / 2), 70))
-            self.menu_text(50, "Rises", dynamic_gold, ((WIN_WIDTH / 2), 120))
+            self.menu_text(70, "Elijah Rises", dynamic_gold, ((WIN_WIDTH - 260), 70))
+            self.menu_text(15, "A journey of faith n' bravery", C_BLACK, ((WIN_WIDTH - 260), 105))
 
             # Renderiza as opções do menu
             for i in range(len(MENU_OPTION)):
                 size = 20 if i != menu_option else 30  # Aumenta a fonte se for a opção selecionada
                 color = C_WHITE if i == menu_option else C_BLACK
-                self.menu_text(size, MENU_OPTION[i], color, ((WIN_WIDTH / 2), 200 + 30 * i))
+                self.menu_text(size, MENU_OPTION[i], color, ((WIN_WIDTH - 260), 200 + 30 * i))
 
             pygame.display.flip()
 
@@ -56,7 +56,9 @@ class Menu:
                         return MENU_OPTION[menu_option]
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Orbitron", size=text_size)
+        # Carrega a fonte MedievalSharp diretamente do arquivo
+        text_font: Font = pygame.font.Font("./asset/MedievalSharp.ttf", text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
+

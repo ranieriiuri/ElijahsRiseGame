@@ -51,13 +51,15 @@ class EntityMediator:
                     ent1.rect.bottom >= ent2.rect.top and
                     ent1.rect.top <= ent2.rect.bottom):
 
-                # Colisão entre Player e MeatBread (não causa dano)
+                # Colisão entre Player e MeatBread ao inves de dano, incrementa score, coleta MB e atualiza a barra (até o objetivo)
                 if isinstance(ent1, Player) and isinstance(ent2, MeatBread):
-                    ent2.collect(ent1)  # Player coleta MeatBread
-                    EntityMediator.update_meat_bread_bar(ent1)  # Atualiza barra de MeatBreads
+                    ent1.score += ent2.value * ent1.meat_bread_bar # multiplica a contagem de meat breads pelo valor da meat bread coletado e adiciona ao score
+                    ent2.collect(ent1)  # player coleta MeatBread
+                    EntityMediator.update_mb_server(ent1) # Atualiza o servidor a cada MeatBreads coletada
                 if isinstance(ent2, Player) and isinstance(ent1, MeatBread):
-                    ent1.collect(ent2)  # Player coleta MeatBread
-                    EntityMediator.update_meat_bread_bar(ent2)  # Atualiza barra de MeatBreads
+                    ent2.score += ent1.value * ent2.meat_bread_bar
+                    ent1.collect(ent2)  # player coleta MeatBread
+                    EntityMediator.update_mb_server(ent2)
 
                 # Player sofre dano de Enemy, Tree ou Wind
                 if isinstance(ent1, Player) and isinstance(ent2, (Enemy, Tree, Wind)):
@@ -116,20 +118,21 @@ class EntityMediator:
                 else:
                     entity_list.remove(ent)
 
-    @staticmethod
-    def __give_score(player: Player, entity_list: list[Entity]):
-        """Atribui score ao jogador por pegar MeatBreads."""
-        if player.meat_bread_bar > 0:
-            player.score += player.meat_bread_bar * 50
+
+    # @staticmethod
+    # def __give_score(player: Player, meat_bread: MeatBread):
+        """Atribui score ao jogador por pegar MeatBreads.
+            
+            OBS: Na fase demo não o utilizaremos !
+        
+        """
+    #    if player.meat_bread_bar > 0:
+    #        player.score += player.meat_bread_bar * meat_bread.value
 
     @staticmethod
-    def update_meat_bread_bar(player: Player):
-        """Atualiza a barra de MeatBreads e comunica a Level sobre o progresso."""
-        if player.meat_bread_bar >= player.meat_bread_target:
-            print("Barra de MeatBreads cheia! Fase concluída com sucesso.")
-            # Aqui, a comunicação com o Level pode ser feita, por exemplo, chamando um método da Level para finalização
-            # Ex: Level.complete_level(player)
-            # Ou enviando a informação para o Level se o jogador completou a fase e atingiu a quantidade de MeatBreads
-        else:
+    def update_mb_server(player: Player):
+        """ Atualiza o servidor sobre as meat breads coletadas, antes de encher"""
+        if player.meat_bread_bar < player.meat_bread_target:
             print(f"MeatBreads coletados: {player.meat_bread_bar}/{player.meat_bread_target}")
-            # Atualize a barra de MeatBreads no jogo (isto pode ser feito em Level, mas a comunicação vem daqui)
+        else:
+            print("Barra de MeatBreads cheia! Fase concluída com sucesso.")

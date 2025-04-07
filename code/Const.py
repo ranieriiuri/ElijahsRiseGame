@@ -44,17 +44,17 @@ C_GOLD = (255, 215, 0)
 
 
 # E
-EVENT_ENEMIES = pygame.USEREVENT + 1
+EVENT_OBSTACLE = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
 EVENT_MB = pygame.USEREVENT + 3
 
 ENTITY_SPEED = {
     'Level1Bg0':0,
     'Level1Bg1':1,
-    'Level1Bg2':2,
-    'Level1Bg3':3,
-    'Level1Bg4':2,
-    'Level1Bg5':0,
+    'Level1Bg2':3,
+    'Level1Bg3':0,
+    'Level1Bg4':1,
+    'Level1Bg5':2,
     'Player': 3,
     'Tree': 2,
     'Bird': 5,
@@ -85,7 +85,7 @@ ENTITY_DAMAGE = {
     'Level1Bg5':0,
     'Player': 1,
     'Dog':30,
-    'Tree':40,
+    'Tree':30,
     'MeatBread':0
 }
 ENTITY_SCORE = {
@@ -99,6 +99,9 @@ ENTITY_SCORE = {
     'Dog':0,
     'Tree':0,
     'MeatBread':0
+}
+ENTITY_VALUE = {
+    'MeatBread': 50
 }
 
 
@@ -123,7 +126,7 @@ TIMEOUT_STEP = 20000  # 20s
 TIMEOUT_LEVEL = 40000  # 40s
 
 # W
-WIN_WIDTH = 600
+WIN_WIDTH = 800
 WIN_HEIGHT = 480
 
 # S

@@ -1,6 +1,6 @@
 import pygame
 
-from code.Const import ENTITY_SPEED
+from code.Const import ENTITY_SPEED, ENTITY_VALUE
 from code.Entity import Entity
 from code.EntityBehavior import EntityBehavior  # ← se ainda não estiver importado
 
@@ -13,6 +13,8 @@ class MeatBread(Entity):
         scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))
 
         super().__init__(name, position, scaled_sheet, rows, cols)
+
+        self.value = ENTITY_VALUE[self.name] # valor de score que MB concede ao ser pega
 
         self.z_index = 1
 
