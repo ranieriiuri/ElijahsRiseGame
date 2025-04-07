@@ -140,7 +140,7 @@ class Level:
 
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
-        text_font: Font = pygame.font.SysFont(name="Orbitron", size=text_size)
+        text_font: Font = pygame.font.SysFont(name="Old English Text MT", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
         self.window.blit(source=text_surf, dest=text_rect)
@@ -167,7 +167,7 @@ class Level:
         # contador de MeatBreads (direita)
         text = f'MeatBreads: {meat_bread_bar}/{meat_bread_target}'
         text_size = 14
-        font = pygame.font.SysFont("Orbitron", text_size)
+        font = pygame.font.SysFont("Old English Text MT", text_size)
         text_surface = font.render(text, True, C_MILITARY_GREEN)
         text_width = text_surface.get_width()
         self.level_text(text_size, text, C_MILITARY_GREEN, (WIN_WIDTH - text_width - 10, 5))

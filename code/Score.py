@@ -94,7 +94,7 @@ class Score:
                     sys.exit()
                 #se houver uma tecla pressionada e for o ESC, retorna
                 if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
+                    if event.key == K_ESCAPE or event.key == K_RETURN:
                         return
             pygame.display.flip() #atualiza o buffer
 

@@ -18,7 +18,7 @@ class Player(Entity):
         self.speed = ENTITY_SPEED[self.name]
         self.blink_timer = 0
         self.meat_bread_bar = 0
-        self.meat_bread_target = 3
+        self.meat_bread_target = 5
         self.z_index = 1
 
     def move(self):

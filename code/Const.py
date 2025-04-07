@@ -55,11 +55,11 @@ ENTITY_SPEED = {
     'Level1Bg3':0,
     'Level1Bg4':1,
     'Level1Bg5':2,
-    'Player': 3,
-    'Tree': 2,
+    'Player': 4,
+    'Tree': 1,
     'Bird': 5,
     'Wind': 7,
-    'Dog':9,
+    'Dog':8,
     'MeatBread':1
 }
 
@@ -84,8 +84,8 @@ ENTITY_DAMAGE = {
     'Level1Bg4':0,
     'Level1Bg5':0,
     'Player': 1,
-    'Dog':30,
-    'Tree':30,
+    'Dog':80,
+    'Tree':60,
     'MeatBread':0
 }
 ENTITY_SCORE = {
@@ -101,7 +101,7 @@ ENTITY_SCORE = {
     'MeatBread':0
 }
 ENTITY_VALUE = {
-    'MeatBread': 50
+    'MeatBread': 4
 }
 
 
