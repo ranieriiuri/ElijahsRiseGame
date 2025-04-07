@@ -15,7 +15,7 @@ class EntityFactory:
         # Vars q carregam a sprite sheet uma vez e passam para as entidades na construção abaixo
         try:
             player_sprite_sheet = pygame.image.load('./asset/player_sprite_sheet.png').convert_alpha()
-            # bird_sprite_sheet = pygame.image.load('./assets/bird_sprite_sheet.png').convert_alpha()
+            # bird_sprite_sheet = pygame.image.load('./assets/bird_sprite_sheet.png').convert_alpha() --> Implementação posterior!
             dog_sprite_sheet = pygame.image.load('./asset/dog_sprite_sheet.png').convert_alpha()
             wind_sprite_sheet = pygame.image.load('./asset/wind_sprite_sheet.png').convert_alpha()
             tree_sprite_sheet = pygame.image.load('./asset/tree_sprite_sheet.png').convert_alpha()
@@ -37,7 +37,7 @@ class EntityFactory:
             case 'Tree':
                 return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT -  260), tree_sprite_sheet, 2, 3)
             case 'Wind':
-                return Wind('Wind', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 80)), wind_sprite_sheet, 2, 2)
+                return Wind('Wind', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 50)), wind_sprite_sheet, 2, 2)
             case 'Dog':
                 return Enemy('Dog', (WIN_WIDTH + 10, WIN_HEIGHT - 95), dog_sprite_sheet, 'ground', 2, 7)
             # >> falta implementar o case do "Bird" <<

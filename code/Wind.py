@@ -1,28 +1,38 @@
 import pygame
 import random
-from code.Const import ENTITY_SPEED
+from code.Const import WIN_WIDTH, WIN_HEIGHT, ENTITY_SPEED
 from code.Entity import Entity
-
 
 class Wind(Entity):
     def __init__(self, name: str, position: tuple, sprite_sheet: pygame.Surface, rows: int = 1, cols: int = 1):
-        super().__init__(name, position, sprite_sheet, rows, cols)
-        self.z_index = 2  # Adiciona à camada do meio, à frente da Tree (que tem z_index 1)
+        # Redimensiona o sprite sheet
+        scale_factor = 0.4 #40%
+        new_width = int(sprite_sheet.get_width() * scale_factor)
+        new_height = int(sprite_sheet.get_height() * scale_factor)
+        scaled_sheet = pygame.transform.scale(sprite_sheet, (new_width, new_height))
+
+        super().__init__(name, position, scaled_sheet, rows, cols)
+
+        self.z_index = 3 # a frente de todas as outras entities em profundidade de tela
+        self.vertical_velocity = random.choice([-1, 1]) # var p controlar a velocidade randomica no eixo y
+        self.speed = ENTITY_SPEED[self.name]
 
     def move(self):
-        """Movimenta o vento para a esquerda e aleatoriamente no eixo Y."""
-        self.rect.centerx -= ENTITY_SPEED[self.name]
-        # Movimenta aleatoriamente no eixo Y
-        self.rect.centery += random.choice([-1, 0, 1])  # Movimentos de -1, 0 ou 1 no eixo Y
+        """Movimenta o vento para a esquerda com flutuação vertical aleatória."""
+        # movimento contínuo para a esquerda, baseado na const definida no arq 'Const'
+        self.rect.centerx -= self.speed
 
-        # Garante que o vento não ultrapasse a borda esquerda da tela
-        # if self.rect.right < 0:
-        #    self.rect.left = 800  # Reinicia a posição se sair da tela
+        # movimento vertical leve e errático
+        self.rect.centery += self.vertical_velocity * 2
 
-    def update(self):
-        """Atualiza a posição e a animação do vento."""
-        self.move()
+        # inverte direção vertical se encostar no topo ou na base
+        if self.rect.top <= 0 or self.rect.bottom >= WIN_HEIGHT:
+            self.vertical_velocity *= -1
+
+        # chance de mudar levemente a direção vertical (mais natural)
+        if random.randint(0, 100) < 12: # 12% de chance de mudar a direção
+            self.vertical_velocity = random.choice([-1, 0, 1])
 
     def render(self, screen):
-        self.update_animation()  # Atualiza o frame atual da animação
-        screen.blit(self.surf, self.rect)  # Renderiza na tela
+        self.update_animation()
+        screen.blit(self.surf, self.rect)

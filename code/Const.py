@@ -57,9 +57,8 @@ ENTITY_SPEED = {
     'Level1Bg5':2,
     'Player': 4,
     'Tree': 1,
-    'Bird': 5,
     'Wind': 7,
-    'Dog':8,
+    'Dog':9,
     'MeatBread':1
 }
 
@@ -73,6 +72,7 @@ ENTITY_HEALTH = {
     'Player': 200,
     'Dog':999,
     'Tree':999,
+    'Wind':999,
     'MeatBread':1
 }
 
@@ -84,8 +84,9 @@ ENTITY_DAMAGE = {
     'Level1Bg4':0,
     'Level1Bg5':0,
     'Player': 1,
-    'Dog':80,
-    'Tree':60,
+    'Dog':60,
+    'Tree':40,
+    'Wind':90,
     'MeatBread':0
 }
 ENTITY_SCORE = {
@@ -98,10 +99,11 @@ ENTITY_SCORE = {
     'Player': 0,
     'Dog':0,
     'Tree':0,
+    'Wind':0,
     'MeatBread':0
 }
 ENTITY_VALUE = {
-    'MeatBread': 4
+    'MeatBread': 5
 }
 
 
@@ -118,12 +120,12 @@ PLAYER_KEY_RIGHT = {'Player': pygame.K_RIGHT}
 PLAYER_KEY_SHOOT = {'Player': pygame.K_SPACE}
 
 # S
-SPAWN_TIME = 4000 # 4s
-MB_SPAWN_TIME = 7000 # 7s
+SPAWN_TIME = 2500 # 2.5s
+MB_SPAWN_TIME = 6000 # 6s p criar MBs
 
 # T
 TIMEOUT_STEP = 1000  # 1s
-TIMEOUT_LEVEL = 60000  # 60s
+TIMEOUT_LEVEL = 80000  # 80s (1min 20s)
 
 # W
 WIN_WIDTH = 800

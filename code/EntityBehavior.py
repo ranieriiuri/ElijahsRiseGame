@@ -32,8 +32,10 @@ class EntityBehavior:
                     self.is_jumping = False
 
     # métodos das meat breads
-    @staticmethod
-    def float_motion(entity, amplitude=5, frequency=0.05):
-        """Aplica um movimento senoidal vertical (flutuação)."""
-        offset = amplitude * math.sin(pygame.time.get_ticks() * frequency)
-        entity.rect.centery = entity.original_y + offset
+    #   OBS: Utilizarei na versão completa!
+
+    #@staticmethod
+    #def float_motion(entity, amplitude=5, frequency=0.05):
+    #    """Aplica um movimento senoidal vertical (flutuação)."""
+    #    offset = amplitude * math.sin(pygame.time.get_ticks() * frequency)
+    #    entity.rect.centery = entity.original_y + offset

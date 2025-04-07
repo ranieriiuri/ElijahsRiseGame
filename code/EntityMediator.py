@@ -66,9 +66,11 @@ class EntityMediator:
                     if ent1.blink_timer <= 0:
                         damage = ent2.damage
                         if isinstance(ent2, Enemy):
-                            damage *= 0.8
-                        elif isinstance(ent2, (Tree, Wind)):
-                            damage *= 0.5
+                            damage *= 0.6
+                        elif isinstance(ent2, Tree):
+                            damage *= 0.4
+                        elif isinstance(ent2, Wind):
+                            damage *= 0.9
 
                         ent1.take_damage(damage)
                         ent1.score -= damage * 2
@@ -80,9 +82,11 @@ class EntityMediator:
                     if ent2.blink_timer <= 0:
                         damage = ent1.damage
                         if isinstance(ent1, Enemy):
-                            damage *= 0.8
-                        elif isinstance(ent1, (Tree, Wind)):
-                            damage *= 0.5
+                            damage *= 0.6
+                        elif isinstance(ent1, Tree):
+                            damage *= 0.4
+                        elif isinstance(ent1, Wind):
+                            damage *= 0.9
 
                         ent2.take_damage(damage)
                         ent2.score -= damage * 2
@@ -112,7 +116,7 @@ class EntityMediator:
                 if isinstance(ent, Player):
                     if ent.blink_timer > 0:
                         ent.blink_timer -= 1
-                    # Se o blink_timer chegar a 0, remove o player da lista
+
                     if ent.blink_timer <= 0:
                         entity_list.remove(ent)
                 else:

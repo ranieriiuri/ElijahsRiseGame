@@ -8,19 +8,18 @@ from pygame.font import Font
 from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, SPAWN_TIME, C_MILITARY_GREEN, C_GRAY, \
     EVENT_TIMEOUT, \
     TIMEOUT_STEP, TIMEOUT_LEVEL, C_BLACK, EVENT_MB, MB_SPAWN_TIME, EVENT_OBSTACLE, WIN_WIDTH, C_GOLD
-from code.Enemy import Enemy
+#from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
 from code.EntityMediator import EntityMediator
-from code.MeatBread import MeatBread
+#from code.MeatBread import MeatBread
 from code.Player import Player
 from code.TransitionManager import TransitionManager
-from code.Tree import Tree
+#from code.Tree import Tree
 from code.VideoManager import VideoManager
 from code.Score import Score
-from code.Wind import Wind
+#from code.Wind import Wind
 
-# OBS:  falta verificar pq p score das meat breads não está sendo adicionado ao Player e implementar Como voltar ao menu após salvar o score !!!
 
 # Func global
 def load_and_scale(path, scale_factor):
@@ -96,7 +95,7 @@ class Level:
 
                 # cria obstáculos
                 if event.type == EVENT_OBSTACLE:
-                    choice = random.choice(('Dog', 'Tree')) # faltam 'Bird', 'Wind'
+                    choice = random.choice(('Dog', 'Tree', 'Wind')) # falta implementar e chamar o obstaculo 'Bird'
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
                 # criando as meat breads baseadas no timer q usa um spawn time e a const EVENT_MB (informa novo evento ao pygame)

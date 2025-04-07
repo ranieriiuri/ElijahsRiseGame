@@ -47,7 +47,6 @@ class Entity(ABC):
             for col in range(self.cols):
                 frame = self.get_sprite(row, col)
                 self.frames.append(frame)
-        print(f"DEBUG: {self.name} - Frames carregados: {len(self.frames)}") #debugando
 
     def get_sprite(self, row_index, col_index):
         """Corta a sprite sheet para pegar um quadro específico."""
