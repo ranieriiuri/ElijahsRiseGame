@@ -39,7 +39,6 @@ class Player(Entity):
         # Atualiza a animação (chama o método da classe mãe)
         self.update_animation()
 
-#TESTING EFFECTS AROUND
     def take_damage(self, damage):
         self.health -= damage
         self.blink_timer = 20  # Define um tempo para piscar
@@ -51,10 +50,6 @@ class Player(Entity):
             if self.meat_bread_bar >= self.meat_bread_target:
                 return True  # Retorna True quando a meta de MeatBreads é alcançada
         return False
-
-    def reset(self):
-        """Reseta o estado do jogador."""
-        self.meat_bread_bar = 0  # Reseta o contador de MeatBreads coletados
 
     # a player tem render pq tem a construcao de piscar quando houver dano
     def render(self, screen):

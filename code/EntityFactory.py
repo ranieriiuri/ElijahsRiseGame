@@ -35,11 +35,11 @@ class EntityFactory:
             case 'Player':
                 return Player('Player', (10, WIN_HEIGHT / 2 - 30), player_sprite_sheet, 5, 8)
             case 'Tree':
-                return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT -  250), tree_sprite_sheet, 2, 3)
+                return Tree('Tree', (WIN_WIDTH + 10, WIN_HEIGHT -  260), tree_sprite_sheet, 2, 3)
             case 'Wind':
                 return Wind('Wind', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 80)), wind_sprite_sheet, 2, 2)
             case 'Dog':
-                return Enemy('Dog', (WIN_WIDTH + 10, WIN_HEIGHT - 88), dog_sprite_sheet, 'ground', 2, 7)
+                return Enemy('Dog', (WIN_WIDTH + 10, WIN_HEIGHT - 95), dog_sprite_sheet, 'ground', 2, 7)
             # >> falta implementar o case do "Bird" <<
             case 'MeatBread':
                 return MeatBread('MeatBread', (WIN_WIDTH + 10, random.randint(40, WIN_HEIGHT - 60)), mb_image, 1, 1) # usará no lugar da sprite sheet uma imagem estática, então, é só manter 'rows' e 'cols' com o valor padrão (1)

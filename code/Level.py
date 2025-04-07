@@ -126,8 +126,9 @@ class Level:
                     TransitionManager.fade_out(self.window, duration=800)
                     return False
 
-            # Desenha a barra de MeatBreads
-            self.draw_meat_bread_bar()
+            #  Desenha a barra de MeatBreads
+            if self.get_player() is not None:
+                self.draw_meat_bread_bar()
 
             self.level_text(18, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', C_GRAY, (10, 5))
             # self.level_text(14, f'fps: {clock.get_fps():.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
