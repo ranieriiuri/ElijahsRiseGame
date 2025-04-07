@@ -5,7 +5,7 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 
-from code.Const import SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK, C_GOLD, WIN_WIDTH, WIN_HEIGHT
+from code.Const import SCORE_POS, MENU_OPTION, C_WHITE, C_BLACK, C_GOLD, WIN_WIDTH, WIN_HEIGHT, C_GRAY
 from code.DBProxy import DBProxy
 
 
@@ -37,7 +37,7 @@ class Score:
                 score = player_score[0]
 
             #printa a descricao do score
-            self.score_text(20, text, C_GOLD, SCORE_POS['EnterName'])
+            self.score_text(20, text, C_GRAY, SCORE_POS['EnterName'])
 
             for event in pygame.event.get():
                 # p conseguir fechar a janela no icone de fechar
