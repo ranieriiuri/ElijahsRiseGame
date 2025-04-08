@@ -1,85 +1,117 @@
 @startuml
 
 class Game {
-    - Level currentLevel
-    + start()
-    + update()
+    + run()
 }
 
 class Level {
-    - List<Entity> entities
-    + loadLevel()
-    + update()
+    + load_and_scale()
+    + run()
+    + level_text()
+    + draw_meat_bread_bar()
+    + check_meat_bread_bar()
+    + get_player()
 }
 
 class Entity {
-    + update()
+    + load_frames()
+    + get_sprite()
+    + update_animation()
+    + move()
     + render()
 }
 
 class Player extends Entity {
-    - int health
     + move()
-    + collectItem()
+    + collect_meat_bread()
+    + take_damage()
+    + render()
 }
 
-class Raven extends Player {
-    + fly()
+class Enemy extends Entity {
+    + move()
+    + render()
 }
 
-class Obstacle extends Entity {
-    + checkCollision()
+class Tree extends Entity {}
+class Wind extends Entity {}
+class Background extends Entity {}
+
+class MeatBread extends Entity {
+    + update()
+    + collect()
+    + move()
+    + render()
 }
 
-class Tree extends Obstacle {}
-class Bird extends Obstacle {}
-class Wind extends Obstacle {}
-
-class Item extends Entity {
-    + applyEffect()
+class Score {
+    + save()
+    + show()
+    - scoreText()
 }
 
-class Bread extends Item {}
-class Meat extends Item {}
-
-class ScoreManager {
-    - int score
-    + addPoints()
-    + getScore()
+class TransitionManager {
+    + fade_in()
+    + fade_out()
 }
 
-class CollisionMediator {
-    + handleCollisions()
-}
-
-class EntityFactory {
-    + createEntity(type: String): Entity
-}
-
-class DatabaseProxy {
-    + saveScore(score: int)
+class EntityMediator {
+    + verify_collision_window()
+    + verify_collision_entity()
+    + verify_collision()
+    + verify_health()
+    + update_mb_server()
 }
 
 class VideoManager {
+    + play_video()
+    + stop_video()
     + playIntro()
     + playEnding()
 }
 
-Game -> Level : manages
-Level -> Entity : contains *
-Player --|> Entity
-Raven --|> Player
-Obstacle --|> Entity
-Tree --|> Obstacle
-Bird --|> Obstacle
-Wind --|> Obstacle
-Item --|> Entity
-Bread --|> Item
-Meat --|> Item
-Game --> ScoreManager : uses
-Game --> CollisionMediator : uses
-Game --> EntityFactory : creates entities with
-Game --> DatabaseProxy : saves score via
-Game --> VideoManager : plays videos via
+class EntityFactory {
+    + get_entity(Entity)
+}
+
+class DBProxy {
+    + save()
+    + retrieve_top10()
+    + close()
+}
+
+class EntityBehavior {
+    + jump()
+    + update_jump()
+}
+
+' === Relações ===
+
+Game --> Level : usa
+Game --> VideoManager : usa
+Game --> TransitionManager : usa
+
+Level --> Player : possui
+Level --> EntityFactory : instancia entidades
+Level --> EntityMediator : usa
+Level --> Score : usa
+Level --> MeatBread : possui
+Level --> Tree : possui
+Level --> Enemy : possui
+Level --> Wind : possui
+Level --> Background : possui
+
+EntityFactory --> Entity : fabrica
+
+EntityMediator --> Background
+EntityMediator --> Player
+EntityMediator --> Enemy
+EntityMediator --> MeatBread
+EntityMediator --> Tree
+EntityMediator --> Wind
+
+Enemy --> EntityBehavior : composição
+
+Score --> DBProxy : usa
 
 @enduml
