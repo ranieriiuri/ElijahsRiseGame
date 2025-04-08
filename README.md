@@ -70,7 +70,7 @@ ElijahsRise/
 
 ### 🖼️ Imagem do Profeta Elias
 
-![Profeta Elias](https://github.com/ranieriiuri/ElijahsRiseGame/asset/elijah.png)
+![Profeta Elias](https://github.com/ranieriiuri/ElijahsRiseGame/tree/main/asset/elijah.png)
 
 ---
 
