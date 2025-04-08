@@ -1,14 +1,10 @@
+- Versão demo;
+- Projeto da Disciplina 'Linguagem de Programação Aplicada';
+- Curso de graduação em Análise e Desenvolvimento de Sistemas;
+- Universidade UNINTER.
+
 Nome: Iuri Ranieri de Oliveira Batista
 RU: 4364259
-
-Obs: Não consegui terminar o projeto completamente (no sentido de rodar e poder criar o executável), por problemas de saúde nas ultimas semanas, perdi muito tempo em relação ao trabalho.
-Ainda consegui ver todas as aulas e fazer as atividades 100%, mas esse projeto se mostrou muito difícil pra realizar a tempo...
-
-Peço encarecidamente que o Sr. reconsidere sobre minha entrega e esforço. Com certeza concluirei esse projeto muito em breve, se me for dado um prazo extra, deixarei o link dele no meu github, para comprovar que estou constantemente trabalhando nele e q concluirei em breve.
-
-Mesmo assim, consegui enviar todos os arquivos do referido projeto, que rodar (com ajuda de uma IDE) até o menu. O Sr. pode analisar todos os arquivos e ver o quanto  consegui evoluir...
-
-Desde já agradeço a compreensão!
 
 Link github do projeto:
 https://github.com/ranieriiuri/ElijahsRiseGame/tree/main

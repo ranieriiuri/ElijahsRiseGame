@@ -20,6 +20,7 @@ class Menu:
     def run(self):
         menu_option = 0
         pygame.mixer_music.load('./asset/Menu.mp3')
+        pygame.mixer.music.set_volume(0.7)
         pygame.mixer_music.play(-1)
 
         while True:
@@ -32,7 +33,7 @@ class Menu:
             dynamic_gold = (max(C_GOLD[0] - self.brightness, 0), max(C_GOLD[1] - self.brightness, 0), C_GOLD[2])
 
             # Exibe o título com efeito de brilho
-            self.menu_text(70, "Elijah Rises", dynamic_gold, ((WIN_WIDTH - 260), 70))
+            self.menu_text(72, "Elijah's Rise", dynamic_gold, ((WIN_WIDTH - 260), 70))
             self.menu_text(18, "A journey of faith n' bravery", C_WHITE, ((WIN_WIDTH - 260), 105))
 
             # Renderiza as opções do menu
